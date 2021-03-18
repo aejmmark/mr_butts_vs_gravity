@@ -1,0 +1,105 @@
+commit 3c786b233e303622f5d5cd6694337f5c5d8c28b3
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:27:33 2021 +0200
+
+    muutoksia
+
+ tiedostoja/file1.txt                 | 0
+ tiedostoja/{file2.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 58f400b180d9574a16c36eb9231098bd0dac4d62
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:22:48 2021 +0200
+
+    lisättiin tiedostoja
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 79fa1c2ed3a2c7f5b445442377c1f231b71cf9bd
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:17:02 2021 +0200
+
+    eka ja kolmas muutettu
+
+ eka.txt    | 4 +---
+ kolmas.txt | 5 ++++-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+commit 104e144d87d939d3eaf1d7c2e676f145b3a4f93f
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:13:30 2021 +0200
+
+    tiedosto -> eka
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f7ac4290455301029aa3299f05369103c461aa47
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:11:40 2021 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 15cfac06da4b173e5f56de0039368a9af4545f1f
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:09:29 2021 +0200
+
+    tiedosto muokattu taas
+
+ tiedosto.txt | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+commit e7d489600249978febeefd1c29ba288fd71d624f
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:08:21 2021 +0200
+
+    tiedosto muokattu
+
+ tiedosto.txt | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+commit 0b509c01f651119ebd602af3a98319e546012f96
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 12:01:41 2021 +0200
+
+    toinen ja kolmas muokattu, stuff lisätty
+
+ kolmas.txt       | 1 +
+ stuff/neljas.txt | 0
+ toinen.txt       | 1 +
+ 3 files changed, 2 insertions(+)
+
+commit eec6226c7838fa3fb39d0e31012c12329b0428a0
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 11:59:03 2021 +0200
+
+    kolmas.txt lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9de68b8cbb08b1ccdb261cd47f77e4937c33c97e
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 11:50:20 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 66105d47cc595f2a55cd40df34d1a8770acbc8cc
+Author: aejmmark <aejmelaeus.markus@gmail.com>
+Date:   Thu Mar 18 11:45:20 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
