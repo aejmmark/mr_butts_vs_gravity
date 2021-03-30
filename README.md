@@ -8,3 +8,5 @@
 [gitlog.txt](https://github.com/aejmmark/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [projektin vaatimusmäärittely](https://github.com/aejmmark/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+
+[työaika](https://github.com/aejmmark/ot-harjoitustyo/blob/master/dokumentaatio/tyoaika.md)
