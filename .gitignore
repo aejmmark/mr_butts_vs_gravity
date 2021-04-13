@@ -1,0 +1,5 @@
+/laskarit
+.pytest_cache
+.coverage
+/src/__pycache__
+/htmlcov
