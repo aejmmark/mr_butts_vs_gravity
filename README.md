@@ -12,6 +12,8 @@ Escape from Dangerland on yksinkertainen tasohyppelypeli, jossa on toistaiseksi 
 
 --------------------------------------------------------------------------------------------------------------------
 
+Peli edellyttää että poetry on asennettuna ja Pythonin versio on vähintään 3.6
+
 riippuvuuksien asentaminen:
 
     poetry install
