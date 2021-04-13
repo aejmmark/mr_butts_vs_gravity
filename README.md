@@ -8,6 +8,8 @@ Escape from Dangerland on yksinkertainen tasohyppelypeli, jossa on toistaiseksi 
 
 [Työaikakirjanpito](https://github.com/aejmmark/ot-harjoitustyo/blob/master/dokumentaatio/tyoaika.md)
 
+--------------------------------------------------------------------------------------------------------------------
+
 riippuvuuksien asentaminen:
 
     poetry install
