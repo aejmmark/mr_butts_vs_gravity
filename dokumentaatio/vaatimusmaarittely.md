@@ -1,5 +1,5 @@
 
-#### Tasohyppelypeli
+#### Escape from Dangerland
 
 Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satunnainen ja loputtomiin jatkuva kenttä.
 
@@ -12,6 +12,6 @@ Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satu
 Jatkokehitysideat
 
 * Viholliset
-* Kentästä löytyvät kertakäyttöiset esineet (esim väliaikainen lentokyky tai haavoittumattomuus)
+* Kentästä löytyvät kertakäyttöiset esineet (esim väliaikainen lentokyky, haavoittumattomuus, aseet, yms)
 * Muuttujat kentissä (esim painovoiman kääntyminen, väliaikainen nopeutuminen)
 * Käsintehdyt kentät
