@@ -17,6 +17,9 @@ class Player(pygame.sprite.Sprite):
         self.double_jump = False
         self.rect.midbottom = self.pos
 
+        self.LEFT = False
+        self.RIGHT = False
+
     def jump(self, platforms):
         for platform in platforms:
             self.collision(platform.rect)
@@ -30,10 +33,9 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.acc = vec(0,GRAV)
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        if self.LEFT:
             self.acc.x = -ACC
-        if keys[pygame.K_RIGHT]:
+        if self.RIGHT:
             self.acc.x = ACC
         self.acc.x += self.vel.x * FRIC
         self.vel += self.acc

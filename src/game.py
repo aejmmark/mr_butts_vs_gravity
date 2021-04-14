@@ -44,6 +44,15 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.player.jump(self.platforms)
+                if event.key == pygame.K_LEFT:
+                    self.player.LEFT = True
+                if event.key == pygame.K_RIGHT:
+                    self.player.RIGHT = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    self.player.LEFT = False
+                if event.key == pygame.K_RIGHT:
+                    self.player.RIGHT = False
 
     def update(self):
         self.all_sprites.update()
