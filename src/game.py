@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.display = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Escape from Dangerland")
+        pygame.display.set_caption("Mr. Butts vs Gravity")
         self.clock = pygame.time.Clock()
         self.running = True
         self.win = False

@@ -1,5 +1,5 @@
 
-#### Escape from Dangerland
+#### Mr. Butts vs Gravity
 
 Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satunnainen ja loputtomiin jatkuva kenttä.
 

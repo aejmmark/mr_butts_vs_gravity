@@ -1,8 +1,8 @@
 #### README
 
-## Escape from Dangerland
+## Mr. Butts vs Gravity
 
-Escape from Dangerland on yksinkertainen tasohyppelypeli, jossa on toistaiseksi vain yksi testikenttä. Pelaaja voi liikkua oikealle tai vasemmalle painamalla nuolinäppäimiä. Lisäksi pelaaja voi hypätä painamalla välilyöntiä. Tämä on mahdollista toistaa kerran ennen kuin hahmo osuu maahan. Pelin voittaa saavuttamalla kentän huipulla olevan lipun.
+Mr. Butts vs Gravity on yksinkertainen tasohyppelypeli, jossa on toistaiseksi vain yksi testikenttä. Pelaaja voi liikkua oikealle tai vasemmalle painamalla nuolinäppäimiä. Lisäksi pelaaja voi hypätä painamalla välilyöntiä. Tämä on mahdollista toistaa kerran ennen kuin hahmo osuu maahan. Pelin voittaa saavuttamalla kentän huipulla olevan lipun.
 
 --------------------------------------------------------------------------------------------------------------------
 
