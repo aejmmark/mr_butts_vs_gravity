@@ -1,9 +1,10 @@
 
 import game
+from constants import FIRST_LEVEL, FIRST_FLAG
 
 game = game.Game()
 while game.running:
-    game.start()
+    game.start(FIRST_LEVEL, FIRST_FLAG)
     game.run(-1)
     if game.win:
         game.victory()

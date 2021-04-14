@@ -12,20 +12,21 @@ class Game:
         self.running = True
         self.win = False
 
-    def start(self):
+    def start(self, level, flag):
         self.all_sprites = pygame.sprite.Group()
         self.player = Player()
         self.all_sprites.add(self.player)
         self.platforms = pygame.sprite.Group()
-        for platform in FIRST_LEVEL:
+        for platform in level:
             p = Platform(platform[0],platform[1],platform[2],platform[3])
             self.all_sprites.add(p)
             self.platforms.add(p)
-        self.flag = Flag(30,70)
+        self.flag = Flag(flag[0], flag[1])
         self.all_sprites.add(self.flag)
 
     def run(self, timer):
         while(self.running):
+            # add event from list function
             self.events()
             self.update()
             self.render()
@@ -33,6 +34,15 @@ class Game:
             timer -= 1
             if timer == 0:
                 self.running = False
+
+    # testing purposes
+    # something like this
+    """def new_eventlist(self, list):
+        self.eventlist = list
+    def new_event(self):
+        if self.eventlist.notempty():
+            event = self.eventlist.poll()
+            pygame.event.post(event)"""
 
     def new_event(self, event):
         pygame.event.post(event)
@@ -59,15 +69,15 @@ class Game:
         for platform in self.platforms:
             self.player.collision(platform.rect)
             if self.player.edges[3] == True:
-                self.player.pos.x = platform.rect.right + PLAYER_WIDTH/2 # seems to work
+                self.player.pos.x = platform.rect.right + PLAYER_WIDTH/2
                 self.player.vel.x = 0
             if self.player.edges[1] == True:
-                self.player.pos.x = platform.rect.left - PLAYER_WIDTH/2 # seems to work
+                self.player.pos.x = platform.rect.left - PLAYER_WIDTH/2
                 self.player.vel.x = 0
             if self.player.edges[0] == True:
-                self.player.pos.y = platform.rect.bottom + PLAYER_HEIGHT # seems to work
+                self.player.pos.y = platform.rect.bottom + PLAYER_HEIGHT
                 self.player.vel.y = 0
-            if self.player.edges[2] == True: # seems to work
+            if self.player.edges[2] == True:
                 if self.player.vel.y > 0: 
                     self.player.pos.y = platform.rect.top
                     self.player.rect.midbottom = self.player.pos

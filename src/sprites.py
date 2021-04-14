@@ -56,9 +56,6 @@ class Player(pygame.sprite.Sprite):
         self.edges[2] = rect.collidepoint(self.rect.midbottom)
         self.edges[3] = rect.collidepoint(self.rect.midleft)
 
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, w, h):
         pygame.sprite.Sprite.__init__(self)
