@@ -16,7 +16,6 @@ class Player(pygame.sprite.Sprite):
         self.acc = vec(0,0)
         self.double_jump = False
         self.rect.midbottom = self.pos
-
         self.LEFT = False
         self.RIGHT = False
 

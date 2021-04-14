@@ -15,3 +15,19 @@ class TestGame(unittest.TestCase):
         self.new_pos = self.game.player.pos.y
         self.game.quit_game()
         self.assertTrue(self.new_pos < self.pos)
+    
+    def test_left_movement(self):
+        self.pos = self.game.player.pos.x
+        self.game.new_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT))
+        self.game.run(20)
+        self.new_pos = self.game.player.pos.x
+        self.game.quit_game()
+        self.assertTrue(self.new_pos < self.pos)
+
+    def test_right_movement(self):
+        self.pos = self.game.player.pos.x
+        self.game.new_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT))
+        self.game.run(20)
+        self.new_pos = self.game.player.pos.x
+        self.game.quit_game()
+        self.assertTrue(self.new_pos > self.pos)
