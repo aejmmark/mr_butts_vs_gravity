@@ -22,7 +22,6 @@ class Player(pygame.sprite.Sprite):
             self.collision(platform.rect)
             if self.edges[2]:
                 self.vel.y = -10
-                self.double_jump = True
                 self.edge_reset
                 return
         if self.double_jump:

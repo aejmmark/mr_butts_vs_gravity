@@ -63,6 +63,7 @@ class Game:
                     self.player.pos.y = platform.rect.top
                     self.player.rect.midbottom = self.player.pos
                     self.player.vel.y = 0
+                    self.player.double_jump = True
         self.player.edge_reset()
         self.goal = pygame.sprite.collide_rect(self.player, self.flag)
         if self.goal:
