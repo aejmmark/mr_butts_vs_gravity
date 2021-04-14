@@ -23,11 +23,11 @@ class Player(pygame.sprite.Sprite):
         for platform in platforms:
             self.collision(platform.rect)
             if self.edges[2]:
-                self.vel.y = -10
+                self.vel.y = -8
                 self.edge_reset
                 return
         if self.double_jump:
-            self.vel.y = -10
+            self.vel.y = -8
             self.double_jump = False
 
     def update(self):

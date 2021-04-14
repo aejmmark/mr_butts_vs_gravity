@@ -16,7 +16,7 @@ PLAYER_HEIGHT = 30
 # physics
 ACC = 1.0
 FRIC = -0.2
-GRAV = 0.6
+GRAV = 0.4
 
 # colours
 WHITE = (255,255,255)
