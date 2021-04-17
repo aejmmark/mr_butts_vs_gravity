@@ -17,25 +17,25 @@ Mr. Butts vs Gravity on yksinkertainen tasohyppelypeli, jossa on toistaiseksi va
 Peli edellyttää että [poetry](https://python-poetry.org/docs/#installation) on asennettuna ja Pythonin versio on vähintään 3.6
 
 
-# riippuvuuksien asentaminen:
+### riippuvuuksien asentaminen:
 
     poetry install
 
-# pelin käynnistäminen:
+### pelin käynnistäminen:
 
     poetry run invoke
 
-# pelin testaus:
+### pelin testaus:
 
     poetry run invoke test
 
-# pelin testikattavuus:
+### pelin testikattavuus:
 
     poetry run invoke coverage-report
 
 raportin löytää /hmtlcov/index.html
 
-# pylint:
+### pylint:
 
     poetry run invoke lint
 
