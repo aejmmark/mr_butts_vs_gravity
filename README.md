@@ -6,6 +6,8 @@ Mr. Butts vs Gravity on yksinkertainen tasohyppelypeli, jossa on toistaiseksi va
 
 --------------------------------------------------------------------------------------------------------------------
 
+[Arkkitehtuuri](https://github.com/aejmmark/ot-harjoitustyo/tree/master/dokumentaatio/arkkitehtuuri.md)
+
 [Vaatimusmäärittely](https://github.com/aejmmark/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/aejmmark/ot-harjoitustyo/blob/master/dokumentaatio/tyoaika.md)
@@ -31,3 +33,9 @@ pelin testikattavuus:
     poetry run invoke coverage-report
 
 raportin löytää /hmtlcov/index.html
+
+pylint:
+
+    poetry run invoke lint
+
+tarkistukset määritelty [.pylintrc](https://github.com/aejmmark/ot-harjoitustyo/blob/master/.pylintrc)
