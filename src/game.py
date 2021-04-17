@@ -1,7 +1,7 @@
 """Main module for the game"""
 import pygame
-from constants import IMG, WIDTH, HEIGHT, FPS, PLAYER_WIDTH, \
-    PLAYER_HEIGHT, WHITE, FIRST_LEVEL, FIRST_FLAG
+from constants import WIDTH, HEIGHT, FPS, PLAYER_WIDTH, \
+    PLAYER_HEIGHT, WHITE, FIRST_LEVEL, IMG
 from stage import Stage
 
 class Game:
@@ -11,38 +11,42 @@ class Game:
         self.display = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Mr. Butts vs Gravity")
         self.clock = pygame.time.Clock()
-        self.stage = Stage(FIRST_LEVEL, FIRST_FLAG)
+        self.stage = Stage(FIRST_LEVEL)
         self.running = True
-        self.win = False
+        self.scrolling = True
+        self.game_over = False
+        self.event_list = []
 
-    def set_stage(self, level, flag):
+    def set_stage(self, level):
         """Select stage"""
-        self.stage = Stage(level, flag)
+        self.stage = Stage(level)
 
     def run(self, timer):
         """Runs the game loop"""
         while self.running:
-            # add event from list function
             self.events()
             self.update()
             self.render()
             self.clock.tick(FPS)
+            self.play_event()
             timer -= 1
             if timer == 0:
                 self.running = False
 
-    # testing purposes
-    # something like this
-    #def new_eventlist(self, list):
-    #    self.eventlist = list
-    #def new_event(self):
-    #    if self.eventlist.notempty():
-    #        event = self.eventlist.poll()
-    #        pygame.event.post(event)
+    def add_event(self, event):
+        """Add event to list for testing purposes"""
+        self.event_list.append(event)
+        # Fill list with empty events to create delays
+        for x in range(10):
+            self.event_list.append(-1)
 
-    def new_event(self, event):
-        """Adds a new event to the event list"""
-        pygame.event.post(event)
+    def play_event(self):
+        """Plays an event from the list"""
+        if len(self.event_list) > 0:
+            event = self.event_list.pop(0)
+            if event == -1:
+                return
+            pygame.event.post(event)
 
     def events(self):
         """Handles game events such as key presses and clearing stages"""
@@ -61,13 +65,13 @@ class Game:
                     self.stage.player.left = False
                 if event.key == pygame.K_RIGHT:
                     self.stage.player.right = False
-        goal = pygame.sprite.collide_rect(self.stage.player, self.stage.flag)
-        if goal:
-            self.win = True
-            self.running = False
 
     def update(self):
         """Updates the locations of sprites"""
+        # disable scrolling for testing
+        if self.scrolling:
+            self.stage.scroll()
+            self.stage.generate()
         self.stage.all_sprites.update()
         for platform in self.stage.platforms:
             self.stage.player.collision(platform.rect)
@@ -87,19 +91,22 @@ class Game:
                     self.stage.player.vel.y = 0
                     self.stage.player.double_jump = True
         self.stage.player.edge_reset()
+        if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
+            self.game_over = True
+            self.running = False
 
     def render(self):
-        """Draws the images on to the display"""
+        """Draws the images to the display"""
         self.display.fill(WHITE)
         self.stage.all_sprites.draw(self.display)
         pygame.display.update()
 
-    def victory(self):
-        """Shows victory screen"""
+    def game_over_screen(self):
+        """Shows game over screen"""
         showing = True
         while showing:
-            victory_screen = pygame.image.load(IMG + "/victory.png").convert()
-            self.display.blit(victory_screen,[0,0])
+            over_screen = pygame.image.load(IMG + "/game_over.png").convert()
+            self.display.blit(over_screen,[0,0])
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

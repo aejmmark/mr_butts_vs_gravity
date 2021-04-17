@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.edges = [False] * 4
-        self.pos = VEC(WIDTH-100, HEIGHT-100)
+        self.pos = VEC(WIDTH/2 + 10, HEIGHT/2)
         self.vel = VEC(0,0)
         self.acc = VEC(0,0)
         self.rect.midbottom = self.pos
@@ -70,15 +70,28 @@ class Platform(pygame.sprite.Sprite):
         self.image = pygame.Surface((width,height))
         self.image.fill(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.x = pos_x
-        self.rect.y = pos_y
+        self.pos = VEC(pos_x,pos_y)
+        self.rect.center = self.pos
 
-class Flag(pygame.sprite.Sprite):
-    """Game goal sprite"""
+    def update(self):
+        """Updates location of platform"""
+        self.rect.center = self.pos
+        if self.rect.right < 0:
+            self.kill()
+
+class Baddie(pygame.sprite.Sprite):
+    """Mean enemies that attack the player"""
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(IMG + "/flag.png").convert()
+        self.image = pygame.image.load(IMG + "/baddie.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-        self.rect.x = pos_x
-        self.rect.y = pos_y
+        self.pos = VEC(pos_x,pos_y)
+        self.rect.center = self.pos
+
+    def update(self):
+        """Updates location of baddie"""
+        self.rect.center = self.pos
+        if self.rect.right < 0:
+            self.kill()
+        
