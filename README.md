@@ -2,7 +2,7 @@
 
 ## Mr. Butts vs Gravity
 
-Mr. Butts vs Gravity on yksinkertainen tasohyppelypeli, jossa on toistaiseksi vain yksi testikenttä. Pelaaja voi liikkua oikealle tai vasemmalle painamalla nuolinäppäimiä. Lisäksi pelaaja voi hypätä painamalla välilyöntiä. Tämä on mahdollista toistaa kerran ennen kuin hahmo osuu maahan. Pelin voittaa saavuttamalla kentän huipulla olevan lipun.
+Mr. Butts vs Gravity on yksinkertainen loputtomiin jatkuva tasohyppelypeli, joka tuottaa jatkuvasti lisää tasoja ja vaaratekijöitä. Pelaaja voi liikkua oikealle tai vasemmalle painamalla nuolinäppäimiä. Lisäksi pelaaja voi hypätä painamalla välilyöntiä. Tämä on mahdollista toistaa kerran ennen kuin hahmo osuu maahan. Peli muuttuu edetessään haastavammaksi ja päättyy lopulta kun pelaajan hahmo osuu piikkeihin.
 
 --------------------------------------------------------------------------------------------------------------------
 
