@@ -18,5 +18,9 @@ def coverage_report(ctx):
     ctx.run("coverage html")
 
 @task
+def lint(ctx):
+    ctx.run("pylint src")
+
+@task
 def fireage(ctx):
     ctx.run("firefox htmlcov/index.html")
