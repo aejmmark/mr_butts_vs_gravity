@@ -1,3 +1,4 @@
+"""All constants"""
 import os
 
 # files
@@ -9,14 +10,15 @@ WIDTH = 800
 HEIGHT = 500
 FPS = 60
 
-# player 
+# player
 PLAYER_WIDTH = 30
 PLAYER_HEIGHT = 30
 
 # physics
+JUMP = -10
 ACC = 1.0
 FRIC = -0.2
-GRAV = 0.4
+GRAV = 0.6
 
 # colours
 WHITE = (255,255,255)

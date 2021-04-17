@@ -1,37 +1,39 @@
-
+"""Contains classes for sprites"""
 import pygame
-from constants import *
+from constants import IMG, HEIGHT, WIDTH, PLAYER_WIDTH, GRAV, ACC, FRIC, JUMP, WHITE, BLACK
 
-vec = pygame.math.Vector2
+VEC = pygame.math.Vector2
 
 class Player(pygame.sprite.Sprite):
+    """Player character sprite"""
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(IMG + "/player.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.edges = [False] * 4
-        self.pos = vec(WIDTH-100, HEIGHT-100)
-        self.vel = vec(0,0)
-        self.acc = vec(0,0)
-        self.double_jump = False
+        self.pos = VEC(WIDTH-100, HEIGHT-100)
+        self.vel = VEC(0,0)
+        self.acc = VEC(0,0)
         self.rect.midbottom = self.pos
+        self.double_jump = False
         self.left = False
         self.right = False
 
     def jump(self, platforms):
+        """Player jumps. Usable in the air if self.double_jump is true"""
         for platform in platforms:
             self.collision(platform.rect)
             if self.edges[2]:
-                self.vel.y = -8
-                self.edge_reset
+                self.vel.y = JUMP
                 return
         if self.double_jump:
-            self.vel.y = -8
+            self.vel.y = JUMP
             self.double_jump = False
 
     def update(self):
-        self.acc = vec(0,GRAV)
+        """Calculates movement and updates player location accordingly"""
+        self.acc = VEC(0,GRAV)
         if self.left:
             self.acc.x = -ACC
         if self.right:
@@ -45,31 +47,38 @@ class Player(pygame.sprite.Sprite):
             self.pos.x = 0+PLAYER_WIDTH/2
         if self.pos.y > HEIGHT:
             self.pos.y = 0
+        # limiting fallings speed to prevent clipping
+        if self.vel.y > 15:
+            self.vel.y = 15
         self.rect.midbottom = self.pos
 
     def edge_reset(self):
-        edges = [False] * 4
+        """Resets the edge collision list"""
+        self.edges = [False] * 4
 
     def collision(self, rect):
+        """Checks edge collisions and adds them to self.edges"""
         self.edges[0] = rect.collidepoint(self.rect.midtop)
         self.edges[1] = rect.collidepoint(self.rect.midright)
         self.edges[2] = rect.collidepoint(self.rect.midbottom)
         self.edges[3] = rect.collidepoint(self.rect.midleft)
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, x, y, w, h):
+    """Platforms that the player collides with"""
+    def __init__(self, pos_x, pos_y, width, height):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((w,h))
+        self.image = pygame.Surface((width,height))
         self.image.fill(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = pos_x
+        self.rect.y = pos_y
 
 class Flag(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    """Game goal sprite"""
+    def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(IMG + "/flag.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = pos_x
+        self.rect.y = pos_y
