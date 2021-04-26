@@ -10,6 +10,7 @@ class Stage:
         """Initializes sprites"""
         self.difficulty = 1
         self.timer = 0
+        self.score = 0
         self.all_sprites = pygame.sprite.Group()
         self.platforms = pygame.sprite.Group()
         self.baddies = pygame.sprite.Group()
@@ -32,7 +33,8 @@ class Stage:
             if self.player.pos.y > baddie.pos.y:
                 baddie.pos.y += 0.2
         self.timer += 1
-        if self.timer == 1800:
+        self.score += 1
+        if self.timer == 3000:
             self.difficulty += 1
             self.timer = 0
 
