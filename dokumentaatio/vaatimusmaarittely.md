@@ -7,8 +7,8 @@ Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satu
 * [x] Kentän alareunaan putoaminen palauttaa pelaajan kentän yläreunaan
 * [x] Peli tuottaa jatkuvasti lisää tasoja kunnes peli päättyy
 * [x] Tasoilla voi ilmetä vaaratekijöitä (esim. piikkejä), joihin osuminen lopettaa pelin
-* [] Pelaajan pistemäärä nousee pelin edetessä
-* [] Pisteet säilötään pelin päätteeksi tulostauluun
+* [x] Pelaajan pistemäärä nousee pelin edetessä
+* [x] Pisteet säilötään pelin päätteeksi tulostauluun
 
 Jatkokehitysideat
 
