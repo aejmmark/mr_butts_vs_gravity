@@ -10,5 +10,5 @@
  17.4 | 3 | pylintiin tutustuminen ja koodin korjailu, rakennekaavio, dokumenttien päivitys
  17.4 | 4 | pelin suunnittelua, alustavat kentät ja vaaratekijät, testien korjailua 
  19.4 | 1 | refaktorointi, bugien korjailu 
- 26.4 | 4 | tulosruudun toteutus, bugien korjailu, dokumentaatio
- yht | 31 |
+ 26.4 | 5 | tulosruudun toteutus, bugien korjailu, lisää testejä, dokumentaatio
+ yht | 32 |
