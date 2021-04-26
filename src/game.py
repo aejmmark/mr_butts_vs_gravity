@@ -120,9 +120,9 @@ class Game:
             self.display_text(score, 30, 30, padding)
             padding += 30
 
-    def get_scores(self):
+    def get_scores(self, file):
         """Retrieves previous highscores from file and rewrites them, returns list of scores"""
-        with open(HS, "r") as highscore:
+        with open(file, "r") as highscore:
             highscores = highscore.read()
             scores = highscores.split(",")
             scores.append(str(self.stage.score))
@@ -132,7 +132,7 @@ class Game:
             scores.sort(key=int, reverse=True)
             scores = scores[:5]
             highscore.close()
-        with open(HS, "w") as highscore:
+        with open(file, "w") as highscore:
             for score in scores:
                 highscore.write(score + ",")
             highscore.close()
@@ -140,9 +140,8 @@ class Game:
 
     def game_over_screen(self):
         """Shows game over screen"""
-        showing = True
-        scores = self.get_scores()
-        while showing:
+        scores = self.get_scores(HS)
+        while self.game_over:
             self.display.fill(WHITE)
             self.display_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
             self.display_highscore(scores)
@@ -150,13 +149,12 @@ class Game:
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    showing = False
+                    self.game_over = False
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
                         self.set_stage(FIRST)
-                        self.game_over = False
                         self.running = True
-                        showing = False
+                        self.game_over = False
 
 
     def quit_game(self):

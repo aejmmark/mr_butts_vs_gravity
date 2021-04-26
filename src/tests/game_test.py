@@ -1,7 +1,8 @@
 import unittest
 import pygame
 import game
-from constants import TEST_LEVEL
+from sprites import Baddie, Platform
+from constants import TEST_LEVEL, FIRST
 
 class TestGame(unittest.TestCase):
     def setUp(self):
@@ -10,7 +11,7 @@ class TestGame(unittest.TestCase):
         self.game.stage.player.pos.x = 400
         self.game.stage.player.pos.y = 440
         self.game.scrolling = False
-                
+
     def test_jump(self):
         self.game.add_event(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_SPACE))
         self.game.run(5)
@@ -41,3 +42,32 @@ class TestGame(unittest.TestCase):
         self.game.add_event(pygame.event.Event(pygame.QUIT))
         self.game.run(5)
         self.assertFalse(self.game.running)
+
+    def test_baddies_end_game(self):
+        baddie = Baddie(400, 440)
+        self.game.stage.baddies.add(baddie)
+        self.game.stage.all_sprites.add(baddie)
+        self.game.run(5)
+        self.assertTrue(self.game.game_over)
+
+    def test_score_increases(self):
+        self.game.scrolling = True
+        self.game.set_stage(FIRST)
+        self.game.run(5)
+        self.assertTrue(self.game.stage.score > 0)
+
+    def test_scrolling_moves_player(self):
+        self.game.scrolling = True
+        self.game.set_stage(FIRST)
+        pos_x = self.game.stage.player.pos.x
+        self.game.run(5)
+        self.assertTrue(pos_x > self.game.stage.player.pos.x)
+
+    def test_scrolling_moves_platforms(self):
+        self.game.scrolling = True
+        self.game.set_stage(FIRST)
+        plat = Platform(100,100,100,100)
+        self.game.stage.platforms.add(plat)
+        pos_x = plat.pos.x
+        self.game.run(5)
+        self.assertTrue(pos_x > plat.pos.x)
