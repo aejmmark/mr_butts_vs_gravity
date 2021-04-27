@@ -58,7 +58,7 @@ class Stage:
             pos_y = randint(-30,HEIGHT + 30)
             new_baddie = Baddie(pos_x, pos_y)
             self.check_overlap(new_baddie, self.baddies, 50, 50)
-        if self.timer == 0:
+        if self.timer == 1000:
             pos_x = randint(WIDTH + 50,WIDTH + 200)
             pos_y = randint(30,HEIGHT - 30)
             powerup = Powerup(pos_x, pos_y)
