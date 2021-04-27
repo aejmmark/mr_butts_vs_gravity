@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
             self.pos.x = 0+PLAYER_WIDTH/2
         if self.pos.y > HEIGHT:
             self.pos.y = 0
-        # limiting fallings speed to prevent clipping
+        # limiting falling speed to prevent clipping
         if self.vel.y > 15:
             self.vel.y = 15
         self.rect.midbottom = self.pos
@@ -94,4 +94,19 @@ class Baddie(pygame.sprite.Sprite):
         self.rect.center = self.pos
         if self.rect.right < 0:
             self.kill()
-        
+
+class Powerup(pygame.sprite.Sprite):
+    """Causes some sort of temporary effect on the game when collided with"""
+    def __init__(self, pos_x, pos_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(IMG + "/powerup.png").convert()
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.pos = VEC(pos_x,pos_y)
+        self.rect.center = self.pos
+
+    def update(self):
+        """Updates location of powerup"""
+        self.rect.center = self.pos
+        if self.rect.right < 0:
+            self.kill()

@@ -1,7 +1,7 @@
 """Main module for the game"""
 import pygame
 from constants import WIDTH, HEIGHT, FPS, PLAYER_WIDTH, \
-    PLAYER_HEIGHT, WHITE, BLACK, FIRST, IMG, HS
+    PLAYER_HEIGHT, WHITE, BLACK, FIRST, HS
 from stage import Stage
 
 class Game:
@@ -92,15 +92,24 @@ class Game:
                     self.stage.player.vel.y = 0
                     self.stage.player.double_jump = True
         self.stage.player.edge_reset()
-        if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
-            self.game_over = True
-            self.running = False
+        if self.stage.effects.powerups["BOINGBOING"]:
+            self.stage.player.double_jump = True
+        if pygame.sprite.spritecollide(self.stage.player, self.stage.powerups, True):
+            self.stage.effects.random_powerup()
+        if not self.stage.effects.powerups["INDESTRUCTABILITY"]:
+            if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
+                self.game_over = True
+                self.running = False
+        self.stage.effects.countdown()
 
     def render(self):
         """Draws the images to the display"""
         self.display.fill(WHITE)
         self.stage.all_sprites.draw(self.display)
         self.display_text(("SCORE: " + str(self.stage.score)), 30, 10, 10)
+        if self.stage.effects.timer > 0:
+            self.display_text((self.stage.effects.get_active_powerup() + ": " \
+                + str(self.stage.effects.timer)), 30, 10, 40)
         pygame.display.update()
 
     def display_text(self, text, size, x_pos, y_pos):
