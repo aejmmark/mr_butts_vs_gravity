@@ -13,6 +13,6 @@ Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satu
 Jatkokehitysideat
 
 * Viholliset
-* Kentästä löytyvät kertakäyttöiset esineet (esim väliaikainen lentokyky, haavoittumattomuus, aseet, yms)
+[x] Kentästä löytyy kertakäyttöisiä esineet (esim väliaikainen lentokyky, haavoittumattomuus, aseet, yms)
 * Muuttujat kentissä (esim painovoiman kääntyminen, väliaikainen nopeutuminen)
 * Käsintehdyt kentät
