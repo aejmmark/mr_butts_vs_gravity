@@ -13,5 +13,5 @@
  26.4 | 5 | tulosruudun toteutus, bugien korjailu, lisää testejä, dokumentaatio 
  27.4 | 3 | powerups, dokumentaatio
  1.5 | 6 | refaktorointi, aloitusruutu, eri hahmojen suunnittelu ja toteutus
- yht | 35 |
+ yht | 41 |
 
