@@ -54,7 +54,7 @@ class Stage:
             new_plat = Platform(pos_x, pos_y, width, height)
             self.check_overlap(new_plat, self.platforms, 150, 100)
         while len(self.baddies) < self.difficulty:
-            pos_x = randint(WIDTH + 50,WIDTH + 200)
+            pos_x = randint(WIDTH + 50,WIDTH + 350)
             pos_y = randint(-30,HEIGHT + 30)
             new_baddie = Baddie(pos_x, pos_y)
             self.check_overlap(new_baddie, self.baddies, 50, 50)

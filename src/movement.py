@@ -1,6 +1,6 @@
 """Handles sprite movement and collision"""
 import pygame
-from constants import WIDTH, HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, ACC, JUMP, FRIC, GRAV
+from constants import WIDTH, HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, ACC, JUMP, FRIC, GRAV, MAX, ROCKET
 
 VEC = pygame.math.Vector2
 
@@ -33,7 +33,7 @@ class Movement:
         if self.reverse:
             self.acc = VEC(0,-GRAV)
         elif self.rocket:
-            self.acc = VEC(0,-0.1)
+            self.acc = VEC(0,ROCKET)
         else:
             self.acc = VEC(0,GRAV)
         if self.left:
@@ -51,11 +51,10 @@ class Movement:
             self.sprite.pos.y = 0
         if self.sprite.pos.y < 0:
             self.sprite.pos.y = HEIGHT
-        # limiting falling speed to prevent clipping
-        if self.vel.y > 15:
-            self.vel.y = 15
-        if self.vel.y < -15:
-            self.vel.y = -15
+        if self.vel.y > MAX:
+            self.vel.y = MAX
+        if self.vel.y < -MAX:
+            self.vel.y = -MAX
 
     def platform_collision(self, platforms):
         """Check collision with platforms using collision_table()" \
@@ -76,7 +75,6 @@ class Movement:
             if self.edges[2]:
                 if self.vel.y > 0:
                     self.sprite.pos.y = platform.rect.top
-                    #self.sprite.rect.midbottom = self.sprite.pos
                     self.vel.y = 0
                     if not self.reverse:
                         self.ability = True

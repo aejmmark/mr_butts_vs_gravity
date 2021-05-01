@@ -30,6 +30,8 @@ JUMP = -7
 ACC = 0.5
 FRIC = -0.15
 GRAV = 0.2
+MAX = 15
+ROCKET = -0.1
 
 # colours
 WHITE = (255,255,255)
