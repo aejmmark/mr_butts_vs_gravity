@@ -1,4 +1,4 @@
-"""Stage of the game"""
+"""Stage of the game, handles scrolling and sprite generation"""
 from random import randint
 import pygame
 from effects import Effects
@@ -7,7 +7,7 @@ from constants import WIDTH, HEIGHT
 
 class Stage:
     """Game stage"""
-    def __init__(self, level):
+    def __init__(self, level, character):
         """Initializes sprites"""
         self.effects = Effects()
         self.difficulty = 1
@@ -17,7 +17,7 @@ class Stage:
         self.platforms = pygame.sprite.Group()
         self.baddies = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
-        self.player = Player()
+        self.player = Player(character)
         self.all_sprites.add(self.player)
         for platform in level:
             plat = Platform(platform[0],platform[1],platform[2],platform[3])
@@ -25,7 +25,7 @@ class Stage:
             self.platforms.add(plat)
 
     def scroll(self):
-        """Moves the screen diagonally"""
+        """Moves the screen diagonally and moves timers"""
         self.player.pos.x -= 1
         for platform in self.platforms:
             platform.pos.x -= 1
@@ -45,8 +45,8 @@ class Stage:
             self.timer = 0
 
     def generate(self):
-        """Generates new platforms"""
-        while len(self.platforms) < 8:
+        """Generates new platforms, baddies and powerups"""
+        while len(self.platforms) < 7:
             pos_x = randint(WIDTH + 50,WIDTH + 200)
             pos_y = randint(50, 450)
             width = randint(80, 120)

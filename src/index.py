@@ -3,7 +3,8 @@ import game
 
 game = game.Game()
 while game.running:
+    game.start()
     game.run(-1)
-    if game.game_over:
-        game.game_over_screen()
+    if game.g_o:
+        game.game_over()
 game.quit_game()

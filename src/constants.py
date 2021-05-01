@@ -15,6 +15,11 @@ FPS = 120 # 60
 PLAYER_WIDTH = 30
 PLAYER_HEIGHT = 30
 
+# character bios
+BUTTS = "Our hero"
+FROG = "Ribbit"
+TUBRM = "Evil incarnate and the archnemesis of Mr. Butts"
+
 # physics
 JUMP = -7 #10
 ACC = 0.5 #1.0

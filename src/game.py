@@ -1,30 +1,29 @@
 """Main module for the game"""
 import pygame
-from constants import WIDTH, HEIGHT, FPS, PLAYER_WIDTH, \
-    PLAYER_HEIGHT, WHITE, BLACK, FIRST, HS
+from constants import WIDTH, HEIGHT, FPS, FIRST
 from stage import Stage
+from display import Display
 
 class Game:
     """Contains the main parts of the game loop"""
     def __init__(self):
         pygame.init()
-        pygame.font.init() # NEW
-        self.display = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Mr. Butts vs Gravity")
+        self.disp = Display(WIDTH, HEIGHT)
         self.clock = pygame.time.Clock()
-        self.stage = Stage(FIRST)
+        self.stage = Stage(FIRST, "/butts.png")
         self.running = True
+        self.playing = False
         self.scrolling = True
-        self.game_over = False
+        self.g_o = False
         self.event_list = []
 
-    def set_stage(self, level):
+    def set_stage(self, level, character):
         """Select stage"""
-        self.stage = Stage(level)
+        self.stage = Stage(level, character)
 
     def run(self, timer):
         """Runs the game loop"""
-        while self.running:
+        while self.playing:
             self.events()
             self.update()
             self.render()
@@ -53,6 +52,7 @@ class Game:
         """Handles game events such as key presses"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.playing = False
                 self.running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
@@ -74,98 +74,38 @@ class Game:
             self.stage.scroll()
             self.stage.generate()
         self.stage.all_sprites.update()
-        for platform in self.stage.platforms:
-            self.stage.player.collision(platform.rect)
-            if self.stage.player.edges[3]:
-                self.stage.player.pos.x = platform.rect.right + PLAYER_WIDTH/2
-                self.stage.player.vel.x = 0
-            if self.stage.player.edges[1]:
-                self.stage.player.pos.x = platform.rect.left - PLAYER_WIDTH/2
-                self.stage.player.vel.x = 0
-            if self.stage.player.edges[0]:
-                self.stage.player.pos.y = platform.rect.bottom + PLAYER_HEIGHT
-                self.stage.player.vel.y = 0
-            if self.stage.player.edges[2]:
-                if self.stage.player.vel.y > 0:
-                    self.stage.player.pos.y = platform.rect.top
-                    self.stage.player.rect.midbottom = self.stage.player.pos
-                    self.stage.player.vel.y = 0
-                    self.stage.player.double_jump = True
-        self.stage.player.edge_reset()
+        self.stage.player.platform_collision(self.stage.platforms)
         if self.stage.effects.powerups["BOINGBOING"]:
             self.stage.player.double_jump = True
         if pygame.sprite.spritecollide(self.stage.player, self.stage.powerups, True):
             self.stage.effects.random_powerup()
-        if not self.stage.effects.powerups["INDESTRUCTABILITY"]:
+        if not self.stage.effects.powerups["INDESTRUCTIBILITY"]:
             if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
-                self.game_over = True
-                self.running = False
+                self.g_o = True
+                self.playing = False
         self.stage.effects.countdown()
 
     def render(self):
         """Draws the images to the display"""
-        self.display.fill(WHITE)
-        self.stage.all_sprites.draw(self.display)
-        self.display_text(("SCORE: " + str(self.stage.score)), 30, 10, 10)
-        if self.stage.effects.timer > 0:
-            self.display_text((self.stage.effects.get_active_powerup() + ": " \
-                + str(self.stage.effects.timer)), 30, 10, 40)
-        pygame.display.update()
+        self.disp.render(self.stage.all_sprites, self.stage.score, \
+            self.stage.effects.active, self.stage.effects.timer)
 
-    def display_text(self, text, size, x_pos, y_pos):
-        """Draws text to the display"""
-        font = pygame.font.SysFont("arial", size)
-        text_surface = font.render(text, False, BLACK)
-        self.display.blit(text_surface,(x_pos,y_pos))
+    def game_over(self):
+        if self.disp.game_over_screen(self.stage.score):
+            self.g_o = False
+        else:
+            self.quit_game()
 
-    def display_highscore(self, scores):
-        """Draws top scores to the display"""
-        if self.stage.score > int(scores[1]):
-            self.display_text("NEW HIGHSCORE!", 40, 300, 110)
-        self.display_text(("SCORE: " + str(self.stage.score)), 30, 30, 110)
-        self.display_text("TOP SCORES", 30, 30, 170)
-        padding = 220
-        for score in scores:
-            self.display_text(score, 30, 30, padding)
-            padding += 30
-
-    def get_scores(self, file):
-        """Retrieves previous highscores from file and rewrites them, returns list of scores"""
-        with open(file, "r") as highscore:
-            highscores = highscore.read()
-            scores = highscores.split(",")
-            scores.append(str(self.stage.score))
-            scores.append(str(0))
-            if "" in scores:
-                scores.remove("")
-            scores.sort(key=int, reverse=True)
-            scores = scores[:5]
-            highscore.close()
-        with open(file, "w") as highscore:
-            for score in scores:
-                highscore.write(score + ",")
-            highscore.close()
-        return scores
-
-    def game_over_screen(self):
-        """Shows game over screen"""
-        scores = self.get_scores(HS)
-        while self.game_over:
-            self.display.fill(WHITE)
-            self.display_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
-            self.display_highscore(scores)
-            self.display_text("PRESS SPACE TO RESTART", 30, 30, 400)
-            pygame.display.update()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.game_over = False
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_SPACE:
-                        self.set_stage(FIRST)
-                        self.running = True
-                        self.game_over = False
-
+    def start(self):
+        character = self.disp.start_screen()
+        if character == "FAIL":
+            self.quit_game()
+        else:
+            # set character
+            self.set_stage(FIRST, character)
+            self.playing = True
 
     def quit_game(self):
         """Shuts down the game"""
+        self.running = False
         pygame.quit()

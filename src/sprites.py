@@ -1,14 +1,14 @@
 """Contains classes for sprites"""
 import pygame
-from constants import IMG, HEIGHT, WIDTH, PLAYER_WIDTH, GRAV, ACC, FRIC, JUMP, WHITE, BLACK
+from constants import IMG, HEIGHT, WIDTH, PLAYER_WIDTH, PLAYER_HEIGHT, GRAV, ACC, FRIC, JUMP, WHITE, BLACK
 
 VEC = pygame.math.Vector2
 
 class Player(pygame.sprite.Sprite):
     """Player character sprite"""
-    def __init__(self):
+    def __init__(self, character):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(IMG + "/player.png").convert()
+        self.image = pygame.image.load(IMG + "/" + character).convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.edges = [False] * 4
@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
     def jump(self, platforms):
         """Player jumps. Usable in the air if self.double_jump is true"""
         for platform in platforms:
-            self.collision(platform.rect)
+            self.collision_table(platform.rect)
             if self.edges[2]:
                 self.vel.y = JUMP
                 return
@@ -52,16 +52,36 @@ class Player(pygame.sprite.Sprite):
             self.vel.y = 15
         self.rect.midbottom = self.pos
 
-    def edge_reset(self):
-        """Resets the edge collision list"""
-        self.edges = [False] * 4
+    def platform_collision(self, platforms):
+        for platform in platforms:
+            self.collision_table(platform.rect)
+            if self.edges[3]:
+                self.pos.x = platform.rect.right + PLAYER_WIDTH/2
+                self.vel.x = 0
+            if self.edges[1]:
+                self.pos.x = platform.rect.left - PLAYER_WIDTH/2
+                self.vel.x = 0
+            if self.edges[0]:
+                self.pos.y = platform.rect.bottom + PLAYER_HEIGHT
+                self.vel.y = 0
+            if self.edges[2]:
+                if self.vel.y > 0:
+                    self.pos.y = platform.rect.top
+                    self.rect.midbottom = self.pos
+                    self.vel.y = 0
+                    self.double_jump = True
+        self.edge_reset()
 
-    def collision(self, rect):
+    def collision_table(self, rect):
         """Checks edge collisions and adds them to self.edges"""
         self.edges[0] = rect.collidepoint(self.rect.midtop)
         self.edges[1] = rect.collidepoint(self.rect.midright)
         self.edges[2] = rect.collidepoint(self.rect.midbottom)
         self.edges[3] = rect.collidepoint(self.rect.midleft)
+
+    def edge_reset(self):
+        """Resets the edge collision list"""
+        self.edges = [False] * 4
 
 class Platform(pygame.sprite.Sprite):
     """Platforms that the player collides with"""
