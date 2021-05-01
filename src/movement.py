@@ -42,19 +42,25 @@ class Movement:
             self.acc.x = ACC
         self.acc.x += self.vel.x * FRIC
         self.vel += self.acc
-        self.sprite.pos += self.vel + 0.5 * self.acc
-        if self.sprite.pos.x > WIDTH-PLAYER_WIDTH/2:
-            self.sprite.pos.x = WIDTH-PLAYER_WIDTH/2
-        if self.sprite.pos.x < 0+PLAYER_WIDTH/2:
-            self.sprite.pos.x = 0+PLAYER_WIDTH/2
-        if self.sprite.pos.y > HEIGHT:
-            self.sprite.pos.y = 0
-        if self.sprite.pos.y < 0:
-            self.sprite.pos.y = HEIGHT
         if self.vel.y > MAX:
             self.vel.y = MAX
         if self.vel.y < -MAX:
             self.vel.y = -MAX
+        self.sprite.pos += self.vel + 0.5 * self.acc
+
+    def border_check(self):
+        """Prevents running out of the screen and \
+            loops y axis based on the value of self.reverse"""
+        if self.sprite.pos.x > WIDTH-PLAYER_WIDTH/2:
+            self.sprite.pos.x = WIDTH-PLAYER_WIDTH/2
+        if self.sprite.pos.x < 0+PLAYER_WIDTH/2:
+            self.sprite.pos.x = 0+PLAYER_WIDTH/2
+        if self.reverse:
+            if self.sprite.pos.y < 0:
+                self.sprite.pos.y = HEIGHT + PLAYER_HEIGHT
+        else:
+            if self.sprite.pos.y > HEIGHT:
+                self.sprite.pos.y = 0
 
     def platform_collision(self, platforms):
         """Check collision with platforms using collision_table()" \

@@ -19,6 +19,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.movement.move()
+        self.movement.border_check()
         self.rect.midbottom = self.pos
 
     def use_ability(self, platforms):

@@ -24,28 +24,31 @@ class Display:
                         return FROG
                     if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
                         return TUBRM
-            self.display.fill(WHITE)
-            self.display_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
-            self.display_text("CLICK CHARACTER TO START", 25, 220, 130)
-            butts = pygame.image.load(IMG + "/big_butts.png").convert()
-            self.display.blit(butts, (170, 200))
-            self.display_text("Mr. Butts", 30, 170, 330)
-            frog = pygame.image.load(IMG + "/big_frog.png").convert()
-            self.display.blit(frog, (340, 200))
-            self.display_text("Frog", 30, 370, 330)
-            tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
-            self.display.blit(tubrm, (510, 200))
-            self.display_text("St. Tubrm", 30, 500, 330)
-            mouse_pos = pygame.mouse.get_pos()
             if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
                 self.display_text(BUTTS_BIO, 30, 200, 400)
             if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
                 self.display_text(FROG_BIO, 30, 320, 400)
             if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
                 self.display_text(TUBRM_BIO, 30, 110, 400)
+            self.start_screen_base()
             pygame.display.update()
 
+    def start_screen_base(self):
+        self.display.fill(WHITE)
+        self.display_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
+        self.display_text("CLICK CHARACTER TO START", 25, 220, 130)
+        butts = pygame.image.load(IMG + "/big_butts.png").convert()
+        self.display.blit(butts, (170, 200))
+        self.display_text("Mr. Butts", 30, 170, 330)
+        frog = pygame.image.load(IMG + "/big_frog.png").convert()
+        self.display.blit(frog, (340, 200))
+        self.display_text("Frog", 30, 370, 330)
+        tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
+        self.display.blit(tubrm, (510, 200))
+        self.display_text("St. Tubrm", 30, 500, 330)
+
     def render(self, all_sprites, current_score, powerup, timer):
+        """Draws sprites and text on the screen"""
         self.display.fill(WHITE)
         all_sprites.draw(self.display)
         self.display_text(("SCORE: " + str(current_score)), 30, 10, 10)
@@ -89,21 +92,22 @@ class Display:
             highscore.close()
         return scores
 
-    def game_over_screen(self, final_score):
+    def game_over_screen(self, final_score, character):
         """Shows game over screen"""
         scores = self.get_scores(final_score, HS)
         game_over = True
         while game_over:
             self.display.fill(WHITE)
-            self.display_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
+            if character == TUBRM:
+                self.display_text("EVIL VANQUISHED", 35, 30, 50)
+            else:
+                self.display_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
             self.display_highscore(final_score, scores)
-            self.display_text("CLICK HERE TO RESTART", 30, 30, 400)
+            self.display_text("CLICK ANYWHERE TO RESTART", 30, 30, 400)
             pygame.display.update()
-            mouse_pos = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return False
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if 30 < mouse_pos[0] < 400 and 400 < mouse_pos[1] < 430:
-                        return True
+                    return True
         return False

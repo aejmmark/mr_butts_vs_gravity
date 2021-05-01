@@ -22,7 +22,7 @@ class Game:
         self.stage = Stage(level, character)
 
     def run(self, timer):
-        """Runs the game loop"""
+        """Runs the game loop. Has a timer feature for quick testing"""
         while self.playing:
             self.events()
             self.update()
@@ -94,7 +94,7 @@ class Game:
             self.stage.effects.active, self.stage.effects.timer)
 
     def game_over(self):
-        if self.disp.game_over_screen(self.stage.score):
+        if self.disp.game_over_screen(self.stage.score, self.stage.player.character):
             self.g_o = False
         else:
             self.quit_game()

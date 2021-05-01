@@ -10,9 +10,7 @@ class Stage:
     def __init__(self, level, character):
         """Initializes sprites"""
         self.effects = Effects()
-        self.difficulty = 1
-        self.timer = 1
-        self.score = 0
+        self.score = 1
         self.all_sprites = pygame.sprite.Group()
         self.platforms = pygame.sprite.Group()
         self.baddies = pygame.sprite.Group()
@@ -25,7 +23,8 @@ class Stage:
             self.platforms.add(plat)
 
     def scroll(self):
-        """Moves the screen diagonally and moves timers"""
+        """Moves the screen diagonally and increases score"""
+        self.score += 1
         self.player.pos.x -= 1
         for platform in self.platforms:
             platform.pos.x -= 1
@@ -33,16 +32,11 @@ class Stage:
             powerup.pos.x -= 1
         if not self.effects.powerups["REVERSE"]:
             for baddie in self.baddies:
-                baddie.pos.x -= 2.5
+                baddie.pos.x -= 2
                 if self.player.pos.y < baddie.pos.y:
-                    baddie.pos.y -= 0.2
+                    baddie.pos.y -= 0.1
                 if self.player.pos.y > baddie.pos.y:
-                    baddie.pos.y += 0.2
-        self.timer += 1
-        self.score += 1
-        if self.timer == 3000:
-            self.difficulty += 1
-            self.timer = 0
+                    baddie.pos.y += 0.1
 
     def generate(self):
         """Generates new platforms, baddies and powerups"""
@@ -53,12 +47,12 @@ class Stage:
             height = randint(20, 45)
             new_plat = Platform(pos_x, pos_y, width, height)
             self.check_overlap(new_plat, self.platforms, 150, 100)
-        while len(self.baddies) < self.difficulty:
-            pos_x = randint(WIDTH + 50,WIDTH + 350)
+        while len(self.baddies) < int((self.score+2200)/3000):
+            pos_x = randint(WIDTH + 50,WIDTH + 500)
             pos_y = randint(-30,HEIGHT + 30)
             new_baddie = Baddie(pos_x, pos_y)
             self.check_overlap(new_baddie, self.baddies, 50, 50)
-        if self.timer == 1000:
+        if int(self.score%3000) == 0:
             pos_x = randint(WIDTH + 50,WIDTH + 200)
             pos_y = randint(30,HEIGHT - 30)
             powerup = Powerup(pos_x, pos_y)

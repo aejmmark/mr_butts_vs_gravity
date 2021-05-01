@@ -7,8 +7,8 @@ class Effects:
     def __init__(self):
         self.powerups = {}
         self.timer = 0
-        self.powerups["BOINGBOING"] = False
         self.powerups["INDESTRUCTIBILITY"] = False
+        self.powerups["BOINGBOING"] = False
         self.powerups["REVERSE"] = False
         self.active = ""
 
@@ -30,10 +30,3 @@ class Effects:
                 self.timer = 1000
                 self.active = key
             randomizer -= 1
-
-    #def get_active_powerup(self):
-    #    """returns name of active powerup"""
-    #    for key, value in self.powerups.items():
-    ##        if value:
-    #            return key
-    #    return ""
