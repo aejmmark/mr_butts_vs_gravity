@@ -15,16 +15,21 @@ FPS = 120 # 60
 PLAYER_WIDTH = 30
 PLAYER_HEIGHT = 30
 
+# characters
+BUTTS = "/butts.png"
+FROG = "/frog.png"
+TUBRM = "/tubrm.png"
+
 # character bios
-BUTTS = "Our hero"
-FROG = "Ribbit"
-TUBRM = "Evil incarnate and the archnemesis of Mr. Butts"
+BUTTS_BIO = "Gravity defying hero of Buttopia"
+FROG_BIO = "Slimy sidekick"
+TUBRM_BIO = "Evil incarnate and archnemesis of Mr. Butts"
 
 # physics
-JUMP = -7 #10
-ACC = 0.5 #1.0
-FRIC = -0.15 #-0.2
-GRAV = 0.2 #0.6
+JUMP = -7
+ACC = 0.5
+FRIC = -0.15
+GRAV = 0.2
 
 # colours
 WHITE = (255,255,255)

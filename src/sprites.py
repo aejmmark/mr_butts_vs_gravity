@@ -1,6 +1,7 @@
 """Contains classes for sprites"""
 import pygame
-from constants import IMG, HEIGHT, WIDTH, PLAYER_WIDTH, PLAYER_HEIGHT, GRAV, ACC, FRIC, JUMP, WHITE, BLACK
+from constants import IMG, HEIGHT, WIDTH, WHITE, BLACK, BUTTS, FROG
+from movement import Movement
 
 VEC = pygame.math.Vector2
 
@@ -8,80 +9,29 @@ class Player(pygame.sprite.Sprite):
     """Player character sprite"""
     def __init__(self, character):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(IMG + "/" + character).convert()
+        self.character = character
+        self.image = pygame.image.load(IMG + character).convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-        self.edges = [False] * 4
+        self.movement = Movement(self)
         self.pos = VEC(WIDTH/2 + 10, HEIGHT/2)
-        self.vel = VEC(0,0)
-        self.acc = VEC(0,0)
         self.rect.midbottom = self.pos
-        self.double_jump = False
-        self.left = False
-        self.right = False
-
-    def jump(self, platforms):
-        """Player jumps. Usable in the air if self.double_jump is true"""
-        for platform in platforms:
-            self.collision_table(platform.rect)
-            if self.edges[2]:
-                self.vel.y = JUMP
-                return
-        if self.double_jump:
-            self.vel.y = JUMP
-            self.double_jump = False
 
     def update(self):
-        """Calculates movement and updates player location accordingly"""
-        self.acc = VEC(0,GRAV)
-        if self.left:
-            self.acc.x = -ACC
-        if self.right:
-            self.acc.x = ACC
-        self.acc.x += self.vel.x * FRIC
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        if self.pos.x > WIDTH-PLAYER_WIDTH/2:
-            self.pos.x = WIDTH-PLAYER_WIDTH/2
-        if self.pos.x < 0+PLAYER_WIDTH/2:
-            self.pos.x = 0+PLAYER_WIDTH/2
-        if self.pos.y > HEIGHT:
-            self.pos.y = 0
-        # limiting falling speed to prevent clipping
-        if self.vel.y > 15:
-            self.vel.y = 15
+        self.movement.move()
         self.rect.midbottom = self.pos
 
-    def platform_collision(self, platforms):
-        for platform in platforms:
-            self.collision_table(platform.rect)
-            if self.edges[3]:
-                self.pos.x = platform.rect.right + PLAYER_WIDTH/2
-                self.vel.x = 0
-            if self.edges[1]:
-                self.pos.x = platform.rect.left - PLAYER_WIDTH/2
-                self.vel.x = 0
-            if self.edges[0]:
-                self.pos.y = platform.rect.bottom + PLAYER_HEIGHT
-                self.vel.y = 0
-            if self.edges[2]:
-                if self.vel.y > 0:
-                    self.pos.y = platform.rect.top
-                    self.rect.midbottom = self.pos
-                    self.vel.y = 0
-                    self.double_jump = True
-        self.edge_reset()
-
-    def collision_table(self, rect):
-        """Checks edge collisions and adds them to self.edges"""
-        self.edges[0] = rect.collidepoint(self.rect.midtop)
-        self.edges[1] = rect.collidepoint(self.rect.midright)
-        self.edges[2] = rect.collidepoint(self.rect.midbottom)
-        self.edges[3] = rect.collidepoint(self.rect.midleft)
-
-    def edge_reset(self):
-        """Resets the edge collision list"""
-        self.edges = [False] * 4
+    def use_ability(self, platforms):
+        if self.character == BUTTS:
+            self.movement.jump(platforms)
+        elif self.character == FROG:
+            if self.movement.ability:
+                self.movement.rocket = True
+                self.movement.ability = False
+        else:
+            if self.movement.ability:
+                self.movement.reverse = not self.movement.reverse
+                self.movement.ability = False
 
 class Platform(pygame.sprite.Sprite):
     """Platforms that the player collides with"""

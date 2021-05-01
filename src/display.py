@@ -1,6 +1,6 @@
 """Handles menu screens and text"""
 import pygame
-from constants import BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM
+from constants import BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG_BIO, TUBRM_BIO
 
 
 class Display:
@@ -18,38 +18,31 @@ class Display:
                 if event.type == pygame.QUIT:
                     return "FAIL"
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if 30 < mouse_pos[0] < 150 and 200 < mouse_pos[1] < 320:
-                        return "/butts.png"
-                    if 200 < mouse_pos[0] < 320 and 200 < mouse_pos[1] < 320:
-                        return "/frog.png"
-                    if 370 < mouse_pos[0] < 490 and 200 < mouse_pos[1] < 320:
-                        return "/tubrm.png"
-            #
+                    if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
+                        return BUTTS
+                    if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
+                        return FROG
+                    if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
+                        return TUBRM
             self.display.fill(WHITE)
-            self.display_text("MR. BUTTS VS GRAVITY", 50, 30, 50)
-            self.display_text("CLICK CHARACTER TO START", 25, 30, 130)
-            #
+            self.display_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
+            self.display_text("CLICK CHARACTER TO START", 25, 220, 130)
             butts = pygame.image.load(IMG + "/big_butts.png").convert()
-            butts.set_colorkey(WHITE)
-            self.display.blit(butts, (30, 200))
-            self.display_text("Mr. Butts", 30, 30, 330)
+            self.display.blit(butts, (170, 200))
+            self.display_text("Mr. Butts", 30, 170, 330)
             frog = pygame.image.load(IMG + "/big_frog.png").convert()
-            frog.set_colorkey(WHITE)
-            self.display.blit(frog, (200, 200))
-            self.display_text("Frog", 30, 230, 330)
+            self.display.blit(frog, (340, 200))
+            self.display_text("Frog", 30, 370, 330)
             tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
-            tubrm.set_colorkey(WHITE)
-            self.display.blit(tubrm, (370, 200))
-            self.display_text("St. Tubrm", 30, 360, 330)
-            #
+            self.display.blit(tubrm, (510, 200))
+            self.display_text("St. Tubrm", 30, 500, 330)
             mouse_pos = pygame.mouse.get_pos()
-            if 30 < mouse_pos[0] < 150 and 200 < mouse_pos[1] < 320:
-                self.display_text(BUTTS, 30, 30, 400)
-            if 200 < mouse_pos[0] < 320 and 200 < mouse_pos[1] < 320:
-                self.display_text(FROG, 30, 30, 400)
-            if 370 < mouse_pos[0] < 490 and 200 < mouse_pos[1] < 320:
-                self.display_text(TUBRM, 30, 30, 400)
-            #
+            if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
+                self.display_text(BUTTS_BIO, 30, 200, 400)
+            if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
+                self.display_text(FROG_BIO, 30, 320, 400)
+            if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
+                self.display_text(TUBRM_BIO, 30, 110, 400)
             pygame.display.update()
 
     def render(self, all_sprites, current_score, powerup, timer):

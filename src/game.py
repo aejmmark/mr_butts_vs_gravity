@@ -32,6 +32,7 @@ class Game:
             timer -= 1
             if timer == 0:
                 self.running = False
+                self.playing = False
 
     def add_event(self, event):
         """Add event to event_list for testing purposes"""
@@ -56,16 +57,18 @@ class Game:
                 self.running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    self.stage.player.jump(self.stage.platforms)
+                    self.stage.player.use_ability(self.stage.platforms)
                 if event.key == pygame.K_LEFT:
-                    self.stage.player.left = True
+                    self.stage.player.movement.left = True
                 if event.key == pygame.K_RIGHT:
-                    self.stage.player.right = True
+                    self.stage.player.movement.right = True
             if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    self.stage.player.movement.rocket = False
                 if event.key == pygame.K_LEFT:
-                    self.stage.player.left = False
+                    self.stage.player.movement.left = False
                 if event.key == pygame.K_RIGHT:
-                    self.stage.player.right = False
+                    self.stage.player.movement.right = False
 
     def update(self):
         """Updates the locations of sprites"""
@@ -74,9 +77,9 @@ class Game:
             self.stage.scroll()
             self.stage.generate()
         self.stage.all_sprites.update()
-        self.stage.player.platform_collision(self.stage.platforms)
+        self.stage.player.movement.platform_collision(self.stage.platforms)
         if self.stage.effects.powerups["BOINGBOING"]:
-            self.stage.player.double_jump = True
+            self.stage.player.movement.ability = True
         if pygame.sprite.spritecollide(self.stage.player, self.stage.powerups, True):
             self.stage.effects.random_powerup()
         if not self.stage.effects.powerups["INDESTRUCTIBILITY"]:
@@ -101,7 +104,6 @@ class Game:
         if character == "FAIL":
             self.quit_game()
         else:
-            # set character
             self.set_stage(FIRST, character)
             self.playing = True
 
