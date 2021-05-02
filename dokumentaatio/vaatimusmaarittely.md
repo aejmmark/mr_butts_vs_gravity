@@ -3,16 +3,19 @@
 
 Ohjelma on yksinkertainen kaksiulotteinen tasohyppelipeli, jossa on täysin satunnainen ja loputtomiin jatkuva kenttä.
 
-* [x] Pelaaja voi hyppiä, tiputtautua ja liikkua oikealle tai vasemmalle
+* [x] Pelaaja voi valita hahmon pelin alussa
+* [x] Hahmo voi liikkua oikealle tai vasemmalle ja käyttää hahmokohtaista kykyään
 * [x] Kentän alareunaan putoaminen palauttaa pelaajan kentän yläreunaan
-* [x] Peli tuottaa jatkuvasti lisää tasoja kunnes peli päättyy
-* [x] Tasoilla voi ilmetä vaaratekijöitä (esim. piikkejä), joihin osuminen lopettaa pelin
+* [x] Kenttä liikkuu jatkuvasti eteenpäin
+* [x] Kentässä ilmenee esineitä, jotka vaikuttavat väliaikaisesti pelin kulkuun
+* [x] Peli tuottaa jatkuvasti lisää tasoja ja vihollisia kunnes peli päättyy
 * [x] Pelaajan pistemäärä nousee pelin edetessä
+* [x] Pelin päätteksi pelaaja näkee pisteensä ja aikaisempien pelien pisteet
 * [x] Pisteet säilötään pelin päätteeksi tulostauluun
 
 Jatkokehitysideat
 
-* Viholliset
-[x] Kentästä löytyy kertakäyttöisiä esineet (esim väliaikainen lentokyky, haavoittumattomuus, aseet, yms)
-* Muuttujat kentissä (esim painovoiman kääntyminen, väliaikainen nopeutuminen)
+* Lisää vihollisia
+* Lisää hahmoja
+* Lisää muuttujia kentässä (esim painovoiman kääntyminen, väliaikainen nopeutuminen)
 * Käsintehdyt kentät
