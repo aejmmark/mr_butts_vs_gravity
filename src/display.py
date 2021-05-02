@@ -26,6 +26,7 @@ class Display:
         """
         start_screen = True
         while start_screen:
+            self.start_screen_base()
             mouse_pos = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -38,28 +39,27 @@ class Display:
                     if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
                         return TUBRM
             if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
-                self.display_text(BUTTS_BIO, 30, 200, 400)
+                self.draw_text(BUTTS_BIO, 30, 200, 400)
             if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
-                self.display_text(FROG_BIO, 30, 320, 400)
+                self.draw_text(FROG_BIO, 30, 320, 400)
             if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
-                self.display_text(TUBRM_BIO, 30, 110, 400)
-            self.start_screen_base()
+                self.draw_text(TUBRM_BIO, 30, 110, 400)
             pygame.display.update()
 
     def start_screen_base(self):
         """Draws text and character images to the start screen"""
         self.display.fill(WHITE)
-        self.display_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
-        self.display_text("CLICK CHARACTER TO START", 25, 220, 130)
+        self.draw_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
+        self.draw_text("CLICK CHARACTER TO START", 25, 220, 130)
         butts = pygame.image.load(IMG + "/big_butts.png").convert()
         self.display.blit(butts, (170, 200))
-        self.display_text("Mr. Butts", 30, 170, 330)
+        self.draw_text("Mr. Butts", 30, 170, 330)
         frog = pygame.image.load(IMG + "/big_frog.png").convert()
         self.display.blit(frog, (340, 200))
-        self.display_text("Frog", 30, 370, 330)
+        self.draw_text("Frog", 30, 370, 330)
         tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
         self.display.blit(tubrm, (510, 200))
-        self.display_text("St. Tubrm", 30, 500, 330)
+        self.draw_text("St. Tubrm", 30, 500, 330)
 
     def render(self, all_sprites, current_score, powerup, timer):
         """Draws sprites, score, and powerup timers to the display
@@ -72,13 +72,13 @@ class Display:
         """
         self.display.fill(WHITE)
         all_sprites.draw(self.display)
-        self.display_text(("SCORE: " + str(current_score)), 30, 10, 10)
+        self.draw_text(("SCORE: " + str(current_score)), 30, 10, 10)
         if timer > 0:
-            self.display_text((powerup + ": " \
+            self.draw_text((powerup + ": " \
                 + str(timer)), 30, 10, 40)
         pygame.display.update()
 
-    def display_text(self, text, size, x_pos, y_pos):
+    def draw_text(self, text, size, x_pos, y_pos):
         """Draws text to the display
 
         Args:
@@ -91,7 +91,7 @@ class Display:
         text_surface = font.render(text, False, BLACK)
         self.display.blit(text_surface,(x_pos,y_pos))
 
-    def display_highscore(self, final_score, scores):
+    def draw_highscores(self, final_score, scores):
         """Draws top scores to the display
 
         Args:
@@ -99,16 +99,16 @@ class Display:
             scores: previous scores
         """
         if final_score > int(scores[1]):
-            self.display_text("NEW HIGHSCORE!", 40, 300, 110)
-        self.display_text(("SCORE: " + str(final_score)), 30, 30, 110)
-        self.display_text("TOP SCORES", 30, 30, 170)
+            self.draw_text("NEW HIGHSCORE!", 40, 300, 110)
+        self.draw_text(("SCORE: " + str(final_score)), 30, 30, 115)
+        self.draw_text("TOP SCORES", 30, 30, 170)
         padding = 220
         for score in scores:
-            self.display_text(score, 30, 30, padding)
+            self.draw_text(score, 30, 30, padding)
             padding += 30
 
     def get_scores(self, final_score, file):
-        """Retrieves previous highscores from file and rewrites them
+        """Retrieves previous draw_ from file and rewrites them
 
         Args:
             final_score: current final score
@@ -118,8 +118,8 @@ class Display:
             list of scores
         """
         with open(file, "r") as highscore:
-            highscores = highscore.read()
-            scores = highscores.split(",")
+            draw_ = highscore.read()
+            scores = draw_.split(",")
             scores.append(str(final_score))
             scores.append(str(0))
             if "" in scores:
@@ -148,11 +148,11 @@ class Display:
         while game_over:
             self.display.fill(WHITE)
             if character == TUBRM:
-                self.display_text("EVIL VANQUISHED", 35, 30, 50)
+                self.draw_text("EVIL VANQUISHED", 35, 30, 50)
             else:
-                self.display_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
-            self.display_highscore(final_score, scores)
-            self.display_text("CLICK ANYWHERE TO RESTART", 30, 30, 400)
+                self.draw_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
+            self.draw_highscores(final_score, scores)
+            self.draw_text("CLICK ANYWHERE TO RESTART", 30, 30, 400)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

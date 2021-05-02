@@ -78,8 +78,8 @@ class Movement:
         if self.sprite.pos.x < 0+PLAYER_WIDTH/2:
             self.sprite.pos.x = 0+PLAYER_WIDTH/2
         if self.reverse:
-            if self.sprite.pos.y > HEIGHT:
-                self.sprite.pos.y = HEIGHT
+            if self.sprite.pos.y < 0:
+                self.sprite.pos.y = HEIGHT + PLAYER_HEIGHT
         else:
             if self.sprite.pos.y < PLAYER_HEIGHT:
                 self.rocket = False

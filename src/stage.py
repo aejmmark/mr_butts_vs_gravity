@@ -53,9 +53,9 @@ class Stage:
     def generate(self):
         """Generates new platforms, baddies and powerups"""
         while len(self.platforms) < 7:
-            pos_x = randint(WIDTH + 50,WIDTH + 200)
+            pos_x = randint(WIDTH + 50,WIDTH + 300)
             pos_y = randint(50, 450)
-            width = randint(80, 120)
+            width = randint(80, 130)
             height = randint(20, 45)
             new_plat = Platform(pos_x, pos_y, width, height)
             self.check_overlap(new_plat, self.platforms, 150, 100)
