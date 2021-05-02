@@ -1,6 +1,6 @@
 """Main module for the game"""
 import pygame
-from constants import WIDTH, HEIGHT, FPS, FIRST
+from constants import BUTTS, WIDTH, HEIGHT, FPS, FIRST
 from stage import Stage
 from display import Display
 
@@ -20,7 +20,7 @@ class Game:
         pygame.init()
         self.disp = Display(WIDTH, HEIGHT)
         self.clock = pygame.time.Clock()
-        self.stage = Stage(FIRST, "/butts.png")
+        self.stage = Stage(FIRST, BUTTS)
         self.running = True
         self.playing = False
         self.scrolling = True
@@ -28,7 +28,7 @@ class Game:
         self.event_list = []
 
     def set_stage(self, level, character):
-        """Select stage
+        """Select stage and character
 
         Args:
             level: list of platforms to be generated to the stage
