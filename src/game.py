@@ -5,7 +5,17 @@ from stage import Stage
 from display import Display
 
 class Game:
-    """Contains the main parts of the game loop"""
+    """Contains the main parts of the game loop
+
+    Attributes:
+        disp: Display class
+        stage: Stage class
+        running: is the game is running
+        playing: is the gameplay loop is running
+        scrolling: is the stage moving or not
+        g_o: is the game over
+        event_list: list of events used to automate inputs for testing
+    """
     def __init__(self):
         pygame.init()
         self.disp = Display(WIDTH, HEIGHT)
@@ -18,11 +28,21 @@ class Game:
         self.event_list = []
 
     def set_stage(self, level, character):
-        """Select stage"""
+        """Select stage
+
+        Args:
+            level: list of platforms to be generated to the stage
+            character: chosen player character
+        """
         self.stage = Stage(level, character)
 
     def run(self, timer):
-        """Runs the game loop. Has a timer feature for quick testing"""
+        """Runs the game loop. Has a timer feature for quick testing
+
+        Args:
+            timer: how many frames the loop runs
+            -1 results in an infinite loop
+        """
         while self.playing:
             self.events()
             self.update()
@@ -35,9 +55,13 @@ class Game:
                 self.playing = False
 
     def add_event(self, event):
-        """Add event to event_list for testing purposes"""
+        """Add event to event_list for testing purposes
+        Fills list with 10 empty events in between to create delays
+
+        Args:
+            event: event to be added
+        """
         self.event_list.append(event)
-        # Fill list with empty events to create delays
         for x_x in range(10):
             self.event_list.append(-1)
 
@@ -71,17 +95,18 @@ class Game:
                     self.stage.player.movement.right = False
 
     def update(self):
-        """Updates the locations of sprites"""
-        # disable scrolling for testing
+        """Updates the status and locations of sprites while checking collision
+        also checks powerups affecting them
+        """
         if self.scrolling:
             self.stage.scroll()
             self.stage.generate()
         self.stage.all_sprites.update()
         self.stage.player.movement.platform_collision(self.stage.platforms)
-        if self.stage.effects.powerups["BOINGBOING"]:
-            self.stage.player.movement.ability = True
         if pygame.sprite.spritecollide(self.stage.player, self.stage.powerups, True):
             self.stage.effects.random_powerup()
+        if self.stage.effects.powerups["BOINGBOING"]:
+            self.stage.player.movement.ability = True
         if not self.stage.effects.powerups["INDESTRUCTIBILITY"]:
             if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
                 self.g_o = True
@@ -94,12 +119,16 @@ class Game:
             self.stage.effects.active, self.stage.effects.timer)
 
     def game_over(self):
+        """Shows game over screen"""
         if self.disp.game_over_screen(self.stage.score, self.stage.player.character):
             self.g_o = False
         else:
             self.quit_game()
 
     def start(self):
+        """Shows start screen
+        Begins game loop when player character is chosen
+        """
         character = self.disp.start_screen()
         if character == "FAIL":
             self.quit_game()

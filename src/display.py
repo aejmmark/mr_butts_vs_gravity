@@ -4,13 +4,26 @@ from constants import BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG
 
 
 class Display:
-    """Handles menu screens and text"""
+    """Handles menu screens and text
+
+    Args:
+        width: width of screen
+        height: height of screen
+
+    Attributes:
+        display: pygame display module
+    """
     def __init__(self, width, height):
         self.display = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Mr. Butts vs Gravity")
 
     def start_screen(self):
-        """Start screen and character selection"""
+        """Start screen and character selection via mouse input
+        Shows character bios when hovering over images
+
+        Returns:
+            file name of selected character
+        """
         start_screen = True
         while start_screen:
             mouse_pos = pygame.mouse.get_pos()
@@ -34,6 +47,7 @@ class Display:
             pygame.display.update()
 
     def start_screen_base(self):
+        """Draws text and character images to the start screen"""
         self.display.fill(WHITE)
         self.display_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
         self.display_text("CLICK CHARACTER TO START", 25, 220, 130)
@@ -48,7 +62,14 @@ class Display:
         self.display_text("St. Tubrm", 30, 500, 330)
 
     def render(self, all_sprites, current_score, powerup, timer):
-        """Draws sprites and text on the screen"""
+        """Draws sprites, score, and powerup timers to the display
+
+        Args:
+            all_sprites: group containing all sprites to be drawn
+            current_score: current game score to be shown
+            powerup: name of powerup
+            timer: powerup timer
+        """
         self.display.fill(WHITE)
         all_sprites.draw(self.display)
         self.display_text(("SCORE: " + str(current_score)), 30, 10, 10)
@@ -58,13 +79,25 @@ class Display:
         pygame.display.update()
 
     def display_text(self, text, size, x_pos, y_pos):
-        """Draws text to the display"""
+        """Draws text to the display
+
+        Args:
+            text: text to be drawn
+            size: size of text
+            x_pos: x position of drawn text
+            y_pos: y position of drawn text
+        """
         font = pygame.font.SysFont("arial", size)
         text_surface = font.render(text, False, BLACK)
         self.display.blit(text_surface,(x_pos,y_pos))
 
     def display_highscore(self, final_score, scores):
-        """Draws top scores to the display"""
+        """Draws top scores to the display
+
+        Args:
+            final_score: current final score
+            scores: previous scores
+        """
         if final_score > int(scores[1]):
             self.display_text("NEW HIGHSCORE!", 40, 300, 110)
         self.display_text(("SCORE: " + str(final_score)), 30, 30, 110)
@@ -75,7 +108,15 @@ class Display:
             padding += 30
 
     def get_scores(self, final_score, file):
-        """Retrieves previous highscores from file and rewrites them, returns list of scores"""
+        """Retrieves previous highscores from file and rewrites them
+
+        Args:
+            final_score: current final score
+            file: path of file
+
+        Returns:
+            list of scores
+        """
         with open(file, "r") as highscore:
             highscores = highscore.read()
             scores = highscores.split(",")
@@ -93,7 +134,15 @@ class Display:
         return scores
 
     def game_over_screen(self, final_score, character):
-        """Shows game over screen"""
+        """Shows game over screen
+
+        Args:
+            final_score: current final score
+            character: current character affects text
+
+        Returns:
+            True if the player clicks on the screen or False if game is shut down
+        """
         scores = self.get_scores(final_score, HS)
         game_over = True
         while game_over:

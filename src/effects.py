@@ -3,7 +3,17 @@
 from random import randint
 
 class Effects:
-    """contains methods and variables used for effects"""
+    """contains methods and variables used for effects
+
+    Attributes:
+        powerups: table of powerups and their boolean values
+            INDESTRUCTIBILITY disables enemy collison
+            BOINGBOING grants infinite ability uses
+            REVERSE: makes enemies move backwards slowly
+        True means that the powerup is active
+        timer: powerup timer
+        active: name of current active powerup
+    """
     def __init__(self):
         self.powerups = {}
         self.timer = 0

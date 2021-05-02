@@ -6,9 +6,21 @@ from sprites import Player, Platform, Baddie, Powerup
 from constants import WIDTH, HEIGHT
 
 class Stage:
-    """Game stage"""
+    """Stage of the game, handles scrolling and sprite generation
+
+    Args:
+        level: list of platforms that are created at the start of the game
+        character: chosen character to be created
+
+    Attributes:
+        effects: Effects class
+        score: game score that increases over time
+        all_sprites: group containing all sprites for easier management
+        platforms: group containing platforms for collision checking
+        baddies: group containing enemies for collision checking
+        powerups: group containing powerups for collison checking
+    """
     def __init__(self, level, character):
-        """Initializes sprites"""
         self.effects = Effects()
         self.score = 1
         self.all_sprites = pygame.sprite.Group()
@@ -61,7 +73,13 @@ class Stage:
 
     def check_overlap(self, new_sprite, group, x_pos, y_pos):
         """Checks if the given sprite overlaps with any in the given group.
-        Uses the given measurements"""
+
+        Args:
+            new_sprite: newly created sprite to be tested
+            group: group of sprites used for collision checking
+            x_pos: how far the created sprites x position has to be from all platforms
+            y_pos: how far the created sprites y position has to be from all platforms
+        """
         for sprite in group:
             if (abs(new_sprite.pos.x - sprite.pos.x) < x_pos) \
                 and (abs(new_sprite.pos.y - sprite.pos.y) < y_pos):

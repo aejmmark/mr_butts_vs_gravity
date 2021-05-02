@@ -5,7 +5,23 @@ from constants import WIDTH, HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, ACC, JUMP, FRI
 VEC = pygame.math.Vector2
 
 class Movement:
-    """Handles sprite movement and collision"""
+    """Handles sprite movement and collision
+
+    Args:
+        sprite: player sprite
+
+    Attributes:
+        sprite: player sprite
+        edges: list of booleans representing edges of player sprite
+        [0]=top [1]=right [2]=bottom [3]=left
+        vel: player velocity vector
+        acc: player acceleration vector
+        ability: is the player ability ready for use
+        rocket: is FROGs ability in use
+        reverse: is the gravity reversed
+        left: is the player moving left
+        right: is the player moving right
+    """
     def __init__(self, sprite):
         self.sprite = sprite
         self.edges = [False] * 4
@@ -18,7 +34,12 @@ class Movement:
         self.right = False
 
     def jump(self, platforms):
-        """Player jumps. Usable in the air if self.ability is true"""
+        """Player jumps if standing on a platform
+        Usable in the air if self.ability is true
+
+        Args:
+            platforms: group of platforms used to determine if the player is on a platform
+        """
         for platform in platforms:
             self.collision_table(platform.rect)
             if self.edges[2]:
@@ -29,7 +50,7 @@ class Movement:
             self.ability = False
 
     def move(self):
-        """Calculates movement and updates player location accordingly"""
+        """Calculates movement and moves player location accordingly"""
         if self.reverse:
             self.acc = VEC(0,-GRAV)
         elif self.rocket:
@@ -49,22 +70,29 @@ class Movement:
         self.sprite.pos += self.vel + 0.5 * self.acc
 
     def border_check(self):
-        """Prevents running out of the screen and \
-            loops y axis based on the value of self.reverse"""
+        """Prevents running out of the screen from the sides and
+        returns the player back to the top when falling out
+        """
         if self.sprite.pos.x > WIDTH-PLAYER_WIDTH/2:
             self.sprite.pos.x = WIDTH-PLAYER_WIDTH/2
         if self.sprite.pos.x < 0+PLAYER_WIDTH/2:
             self.sprite.pos.x = 0+PLAYER_WIDTH/2
         if self.reverse:
-            if self.sprite.pos.y < 0:
-                self.sprite.pos.y = HEIGHT + PLAYER_HEIGHT
-        else:
             if self.sprite.pos.y > HEIGHT:
+                self.sprite.pos.y = HEIGHT
+        else:
+            if self.sprite.pos.y < PLAYER_HEIGHT:
+                self.rocket = False
+            if self.sprite.pos.y > HEIGHT + PLAYER_HEIGHT:
                 self.sprite.pos.y = 0
 
     def platform_collision(self, platforms):
-        """Check collision with platforms using collision_table()" \
-            "and adjusts player position accordingly"""
+        """Check collision with platforms
+        Adjusts player position and velocity to simulate collision
+
+        Args:
+            platforms: group of platforms for collision checks
+        """
         for platform in platforms:
             self.collision_table(platform.rect)
             if self.edges[3]:
@@ -87,7 +115,11 @@ class Movement:
         self.edge_reset()
 
     def collision_table(self, rect):
-        """Checks edge collisions and adds them to self.edges"""
+        """Checks edge collisions and adds them to self.edges
+
+        Args:
+            rect: collision box of platform used to check collision
+        """
         self.edges[0] = rect.collidepoint(self.sprite.rect.midtop)
         self.edges[1] = rect.collidepoint(self.sprite.rect.midright)
         self.edges[2] = rect.collidepoint(self.sprite.rect.midbottom)
