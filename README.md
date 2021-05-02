@@ -2,11 +2,13 @@
 
 ## Mr. Butts vs Gravity
 
-Mr. Butts vs Gravity on yksinkertainen loputtomiin jatkuva tasohyppelypeli, joka tuottaa jatkuvasti lisää tasoja ja vaaratekijöitä. Pelaaja voi liikkua oikealle tai vasemmalle painamalla nuolinäppäimiä. Lisäksi pelaaja voi hypätä painamalla välilyöntiä. Tämä on mahdollista toistaa kerran ennen kuin hahmo osuu maahan. Peli muuttuu edetessään haastavammaksi ja päättyy lopulta kun pelaajan hahmo osuu piikkeihin.
+Mr. Butts vs Gravity on yksinkertainen loputtomiin jatkuva tasohyppelypeli. Siinä on jatkuvasti liikkuva kenttä, joka tuottaa edetessään lisää tasoja ja vaaratekijöitä. Pelissä on kolme eri hahmoa, joilla on erilaiset tavat liikkua kentässä. Peli muuttuu haastavammaksi ajan myötä ja päättyy lopulta kun pelaajan hahmo osuu viholliseen, jolloin pelaaja näkee kerryttämänsä pisteet.
 
 --------------------------------------------------------------------------------------------------------------------
 
 [Release](https://github.com/aejmmark/ot-harjoitustyo/releases/tag/viikko5)
+
+[Käyttöohje](https://github.com/aejmmark/ot-harjoitustyo/tree/master/dokumentaatio/kaytto-ohje.md)
 
 [Arkkitehtuuri](https://github.com/aejmmark/ot-harjoitustyo/tree/master/dokumentaatio/arkkitehtuuri.md)
 
