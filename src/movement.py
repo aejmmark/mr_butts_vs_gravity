@@ -1,7 +1,6 @@
 """Handles sprite movement and collision"""
 import pygame
 from constants import WIDTH, HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, ACC, JUMP, FRIC, GRAV, MAX, ROCKET
-
 VEC = pygame.math.Vector2
 
 class Movement:

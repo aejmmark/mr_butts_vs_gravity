@@ -49,6 +49,7 @@ class Stage:
                     baddie.pos.y -= 0.1
                 if self.player.pos.y > baddie.pos.y:
                     baddie.pos.y += 0.1
+        self.generate()
 
     def generate(self):
         """Generates new platforms, baddies and powerups"""

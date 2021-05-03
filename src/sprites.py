@@ -2,7 +2,6 @@
 import pygame
 from constants import IMG, HEIGHT, WIDTH, WHITE, BLACK, BUTTS, FROG
 from movement import Movement
-
 VEC = pygame.math.Vector2
 
 class Player(pygame.sprite.Sprite):

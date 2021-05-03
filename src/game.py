@@ -1,6 +1,6 @@
 """Main module for the game"""
 import pygame
-from constants import BUTTS, WIDTH, HEIGHT, FPS, FIRST
+from constants import BUTTS, FPS, FIRST
 from stage import Stage
 from display import Display
 
@@ -18,7 +18,7 @@ class Game:
     """
     def __init__(self):
         pygame.init()
-        self.disp = Display(WIDTH, HEIGHT)
+        self.disp = Display()
         self.clock = pygame.time.Clock()
         self.stage = Stage(FIRST, BUTTS)
         self.running = True
@@ -81,6 +81,8 @@ class Game:
                 self.running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
+                    if self.stage.effects.powerups["BOINGBOING"]:
+                        self.stage.player.movement.ability = True
                     self.stage.player.use_ability(self.stage.platforms)
                 if event.key == pygame.K_LEFT:
                     self.stage.player.movement.left = True
@@ -95,18 +97,13 @@ class Game:
                     self.stage.player.movement.right = False
 
     def update(self):
-        """Updates the status and locations of sprites while checking collision
-        also checks powerups affecting them
-        """
+        """Updates the status and locations of sprites while checking collision"""
         if self.scrolling:
             self.stage.scroll()
-            self.stage.generate()
         self.stage.all_sprites.update()
         self.stage.player.movement.platform_collision(self.stage.platforms)
         if pygame.sprite.spritecollide(self.stage.player, self.stage.powerups, True):
             self.stage.effects.random_powerup()
-        if self.stage.effects.powerups["BOINGBOING"]:
-            self.stage.player.movement.ability = True
         if not self.stage.effects.powerups["INDESTRUCTIBILITY"]:
             if pygame.sprite.spritecollide(self.stage.player, self.stage.baddies, True):
                 self.g_o = True

@@ -1,6 +1,6 @@
 """Handles menu screens and text"""
 import pygame
-from constants import BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG_BIO, TUBRM_BIO
+from constants import WIDTH, HEIGHT, BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG_BIO, TUBRM_BIO
 
 
 class Display:
@@ -13,8 +13,8 @@ class Display:
     Attributes:
         display: pygame display module
     """
-    def __init__(self, width, height):
-        self.display = pygame.display.set_mode((width, height))
+    def __init__(self):
+        self.display = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Mr. Butts vs Gravity")
 
     def start_screen(self):
