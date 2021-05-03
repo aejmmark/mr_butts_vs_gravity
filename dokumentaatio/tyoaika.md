@@ -13,6 +13,7 @@
  26.4. | 5 | tulosruudun toteutus, bugien korjailu, lisää testejä, dokumentaatio 
  27.4. | 3 | powerups, dokumentaatio
  1.5. | 6 | refaktorointi, aloitusruutu, eri hahmojen suunnittelu ja toteutus
- 2.5. | 3 | docstringit, käyttöohje, readme, bugien korjailu, testejä
- yht | 44 |
+ 2.5. | 2 | docstringit, käyttöohje, readme, bugien korjailu, testejä
+ 3.5. | 2 | arkkitehtuuri
+ yht | 45 |
 
