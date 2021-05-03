@@ -6,7 +6,7 @@ Mr. Butts vs Gravity on yksinkertainen loputtomiin jatkuva tasohyppelypeli. Siin
 
 --------------------------------------------------------------------------------------------------------------------
 
-[Release](https://github.com/aejmmark/ot-harjoitustyo/releases/tag/viikko5)
+[Release](https://github.com/aejmmark/ot-harjoitustyo/releases/tag/viikko6)
 
 [Käyttöohje](https://github.com/aejmmark/ot-harjoitustyo/tree/master/dokumentaatio/kaytto-ohje.md)
 
