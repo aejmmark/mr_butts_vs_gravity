@@ -63,7 +63,7 @@ class Game:
             event: event to be added
         """
         self.event_list.append(event)
-        for x_x in range(10):
+        for _ in range(10):
             self.event_list.append(-1)
 
     def play_event(self):
@@ -118,10 +118,10 @@ class Game:
 
     def game_over(self):
         """Shows game over screen"""
-        choice = self.disp.game_over_screen(self.stage.score, self.stage.player.character)
-        if choice == "start":
+        _choice = self.disp.game_over_screen(self.stage.score, self.stage.player.character)
+        if _choice == "start":
             self.g_o = False
-        elif choice == "quick":
+        elif _choice == "quick":
             self.g_o = False
             self.skip_start = True
         else:
@@ -132,15 +132,15 @@ class Game:
         Begins game loop when player character is chosen
         """
         if self.skip_start:
-            self.skip_start == False
+            self.skip_start = False
             self.set_stage(FIRST, self.stage.player.character)
             self.playing = True
             return
-        character = self.disp.start_screen()
-        if character == "FAIL":
+        _character = self.disp.start_screen()
+        if _character == "FAIL":
             self.quit_game()
         else:
-            self.set_stage(FIRST, character)
+            self.set_stage(FIRST, _character)
             self.playing = True
 
     def quit_game(self):

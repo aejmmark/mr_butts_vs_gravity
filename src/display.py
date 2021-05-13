@@ -25,25 +25,25 @@ class Display:
         Returns:
             file name of selected character
         """
-        start_screen = True
-        while start_screen:
+        _start_screen = True
+        while _start_screen:
             self.start_screen_base()
-            mouse_pos = pygame.mouse.get_pos()
+            _mouse_pos = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "FAIL"
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
+                    if 170 < _mouse_pos[0] < 290 and 200 < _mouse_pos[1] < 320:
                         return BUTTS
-                    if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
+                    if 340 < _mouse_pos[0] < 460 and 200 < _mouse_pos[1] < 320:
                         return FROG
-                    if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
+                    if 500 < _mouse_pos[0] < 620 and 200 < _mouse_pos[1] < 320:
                         return TUBRM
-            if 170 < mouse_pos[0] < 290 and 200 < mouse_pos[1] < 320:
+            if 170 < _mouse_pos[0] < 290 and 200 < _mouse_pos[1] < 320:
                 self.draw_text(BUTTS_BIO, 30, 200, 400)
-            if 340 < mouse_pos[0] < 460 and 200 < mouse_pos[1] < 320:
+            if 340 < _mouse_pos[0] < 460 and 200 < _mouse_pos[1] < 320:
                 self.draw_text(FROG_BIO, 30, 320, 400)
-            if 500 < mouse_pos[0] < 620 and 200 < mouse_pos[1] < 320:
+            if 500 < _mouse_pos[0] < 620 and 200 < _mouse_pos[1] < 320:
                 self.draw_text(TUBRM_BIO, 30, 110, 400)
             pygame.display.update()
 
@@ -52,14 +52,14 @@ class Display:
         self.display.fill(WHITE)
         self.draw_text("MR. BUTTS VS GRAVITY", 50, 120, 50)
         self.draw_text("CLICK CHARACTER TO START", 25, 220, 130)
-        butts = pygame.image.load(IMG + "/big_butts.png").convert()
-        self.display.blit(butts, (170, 200))
+        _butts = pygame.image.load(IMG + "/big_butts.png").convert()
+        self.display.blit(_butts, (170, 200))
         self.draw_text("Mr. Butts", 30, 170, 330)
-        frog = pygame.image.load(IMG + "/big_frog.png").convert()
-        self.display.blit(frog, (340, 200))
+        _frog = pygame.image.load(IMG + "/big_frog.png").convert()
+        self.display.blit(_frog, (340, 200))
         self.draw_text("Frog", 30, 370, 330)
-        tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
-        self.display.blit(tubrm, (510, 200))
+        _tubrm = pygame.image.load(IMG + "/big_tubrm.png").convert()
+        self.display.blit(_tubrm, (510, 200))
         self.draw_text("St. Tubrm", 30, 500, 330)
 
     def render(self, all_sprites, current_score, powerup, timer):
@@ -88,8 +88,8 @@ class Display:
             x_pos: x position of drawn text
             y_pos: y position of drawn text
         """
-        font = pygame.font.SysFont("arial", size)
-        text_surface = font.render(text, False, BLACK)
+        _font = pygame.font.SysFont("arial", size)
+        text_surface = _font.render(text, False, BLACK)
         self.display.blit(text_surface,(x_pos,y_pos))
 
     def draw_highscores(self, final_score, scores):
@@ -103,10 +103,10 @@ class Display:
             self.draw_text("NEW HIGHSCORE!", 40, 300, 110)
         self.draw_text(("SCORE: " + str(final_score)), 30, 30, 115)
         self.draw_text("TOP SCORES", 30, 30, 170)
-        padding = 220
+        _padding = 220
         for score in scores:
-            self.draw_text(score, 30, 30, padding)
-            padding += 30
+            self.draw_text(score, 30, 30, _padding)
+            _padding += 30
 
     def get_scores(self, final_score, file):
         """Retrieves previous draw_ from file and rewrites them
@@ -119,20 +119,20 @@ class Display:
             list of scores
         """
         with open(file, "r") as highscore:
-            draw_ = highscore.read()
-            scores = draw_.split(",")
-            scores.append(str(final_score))
-            scores.append(str(0))
-            if "" in scores:
-                scores.remove("")
-            scores.sort(key=int, reverse=True)
-            scores = scores[:5]
+            _draw = highscore.read()
+            _scores = _draw.split(",")
+            _scores.append(str(final_score))
+            _scores.append(str(0))
+            if "" in _scores:
+                _scores.remove("")
+            _scores.sort(key=int, reverse=True)
+            _scores = _scores[:5]
             highscore.close()
         with open(file, "w") as highscore:
-            for score in scores:
+            for score in _scores:
                 highscore.write(score + ",")
             highscore.close()
-        return scores
+        return _scores
 
     def game_over_screen(self, final_score, character):
         """Shows game over screen
@@ -146,17 +146,17 @@ class Display:
             "start" if the player clicks on the screen, "quick" if space key is pressed
             or False if game is shut down
         """
-        scores = self.get_scores(final_score, HS)
-        game_over = True
-        timer = 0
-        while game_over:
-            timer += 1
+        _scores = self.get_scores(final_score, HS)
+        _game_over = True
+        _timer = 0
+        while _game_over:
+            _timer += 1
             self.display.fill(WHITE)
             if character == TUBRM:
                 self.draw_text("EVIL VANQUISHED", 35, 30, 50)
             else:
                 self.draw_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
-            self.draw_highscores(final_score, scores)
+            self.draw_highscores(final_score, _scores)
             self.draw_text("CLICK ANYWHERE TO RESTART", 30, 30, 400)
             self.draw_text("PRESS SPACE TO TRY AGAIN", 30, 30, 450)
             pygame.display.update()
@@ -166,6 +166,6 @@ class Display:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     return "start"
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE and timer > 200:
+                    if event.key == pygame.K_SPACE and _timer > 200:
                         return "quick"
         return False
