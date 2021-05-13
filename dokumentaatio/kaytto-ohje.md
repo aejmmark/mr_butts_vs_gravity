@@ -32,7 +32,7 @@
 * Kentässä ilmenee kerättäviä P-merkkejä (power-up), jotka vaikuttavat väliaikaisesti pelin kulkuun
     * INDESTRUCTIBILITY tekee hahmosta haavoittumattoman
     * BOINGBOING mahdollistaa hahmon kyvyn loputtoman käytön
-    * REVERSE saa viholliset liikkumaan hitaasti takaperin
+    * ICE AGE estää vihollisia liikkumasta eteenpäin
 * Pelaajan pisteet ja mahdollinen power-up näkyvät ruudun vasemmassa yläreunassa
 * Pelin edetessä vihollisten määrä lisääntyy
 * Vihollisiin osuminen päättää pelin
