@@ -21,6 +21,10 @@ def coverage_report(ctx):
 def lint(ctx):
     ctx.run("pylint src")
 
-@task
+@task(coverage_report)
 def fireage(ctx):
     ctx.run("firefox htmlcov/index.html")
+
+@task
+def format(ctx):
+    ctx.run("autopep8 --in-place --recursive src")
