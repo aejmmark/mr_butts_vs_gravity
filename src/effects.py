@@ -19,7 +19,7 @@ class Effects:
         self.timer = 0
         self.powerups["INDESTRUCTIBILITY"] = False
         self.powerups["BOINGBOING"] = False
-        self.powerups["REVERSE"] = False
+        self.powerups["ICE AGE"] = False
         self.active = ""
 
     def countdown(self):
@@ -33,10 +33,10 @@ class Effects:
 
     def random_powerup(self):
         """Activates random powerup"""
-        randomizer = randint(0,2)
+        _randomizer = randint(0,2)
         for key in self.powerups:
-            if randomizer == 0:
+            if _randomizer == 0:
                 self.powerups[key] = True
                 self.timer = 1000
                 self.active = key
-            randomizer -= 1
+            _randomizer -= 1
