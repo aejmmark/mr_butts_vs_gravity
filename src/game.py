@@ -1,8 +1,8 @@
 """Main module for the game"""
 import pygame
-from constants import BUTTS, FPS, FIRST
 from stage import Stage
 from display import Display
+from constants import BUTTS, FIRST, FPS
 
 class Game:
     """Contains the main parts of the game loop
@@ -25,6 +25,7 @@ class Game:
         self.playing = False
         self.scrolling = True
         self.g_o = False
+        self.skip_start = False
         self.event_list = []
 
     def set_stage(self, level, character):
@@ -117,8 +118,12 @@ class Game:
 
     def game_over(self):
         """Shows game over screen"""
-        if self.disp.game_over_screen(self.stage.score, self.stage.player.character):
+        choice = self.disp.game_over_screen(self.stage.score, self.stage.player.character)
+        if choice == "start":
             self.g_o = False
+        elif choice == "quick":
+            self.g_o = False
+            self.skip_start = True
         else:
             self.quit_game()
 
@@ -126,6 +131,11 @@ class Game:
         """Shows start screen
         Begins game loop when player character is chosen
         """
+        if self.skip_start:
+            self.skip_start == False
+            self.set_stage(FIRST, self.stage.player.character)
+            self.playing = True
+            return
         character = self.disp.start_screen()
         if character == "FAIL":
             self.quit_game()

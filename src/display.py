@@ -1,6 +1,7 @@
 """Handles menu screens and text"""
 import pygame
-from constants import WIDTH, HEIGHT, BLACK, WHITE, HS, IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG_BIO, TUBRM_BIO
+from constants import WIDTH, HEIGHT, BLACK, WHITE, HS, \
+    IMG, BUTTS, FROG, TUBRM, BUTTS_BIO, FROG_BIO, TUBRM_BIO
 
 
 class Display:
@@ -135,17 +136,21 @@ class Display:
 
     def game_over_screen(self, final_score, character):
         """Shows game over screen
+            Timer ensures that the game is not restarted accidentally
 
         Args:
             final_score: current final score
             character: current character affects text
 
         Returns:
-            True if the player clicks on the screen or False if game is shut down
+            "start" if the player clicks on the screen, "quick" if space key is pressed
+            or False if game is shut down
         """
         scores = self.get_scores(final_score, HS)
         game_over = True
+        timer = 0
         while game_over:
+            timer += 1
             self.display.fill(WHITE)
             if character == TUBRM:
                 self.draw_text("EVIL VANQUISHED", 35, 30, 50)
@@ -153,10 +158,14 @@ class Display:
                 self.draw_text("WELCOME TO THE GRAVEYARD OF YOU", 35, 30, 50)
             self.draw_highscores(final_score, scores)
             self.draw_text("CLICK ANYWHERE TO RESTART", 30, 30, 400)
+            self.draw_text("PRESS SPACE TO TRY AGAIN", 30, 30, 450)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    return False
+                    return "false"
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    return True
+                    return "start"
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE and timer > 200:
+                        return "quick"
         return False
