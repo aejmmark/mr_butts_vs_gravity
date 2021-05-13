@@ -15,5 +15,6 @@
  1.5. | 6 | refaktorointi, aloitusruutu, eri hahmojen suunnittelu ja toteutus
  2.5. | 2 | docstringit, käyttöohje, readme, bugien korjailu, testejä
  3.5. | 2 | arkkitehtuuri
- yht | 45 |
+ 13.5. | 3 | pelin uudelleenkäynnistys, testit, dokumentaatio 
+ yht | 48 |
 
