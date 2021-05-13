@@ -10,7 +10,9 @@ class Stage:
 
     Args:
         level: list of platforms that are created at the start of the game
+        defaults to FIRST
         character: chosen character to be created
+        defaults to BUTTS
 
     Attributes:
         effects: Effects class
