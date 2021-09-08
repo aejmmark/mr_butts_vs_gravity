@@ -29,7 +29,7 @@ Peli edellyttää että [poetry](https://python-poetry.org/docs/#installation) o
 
 ### pelin käynnistäminen:
 
-    poetry run invoke
+    poetry run invoke start
 
 ### pelin testaus:
 
